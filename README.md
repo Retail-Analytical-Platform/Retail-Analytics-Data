@@ -4,7 +4,7 @@
 
 ## Tentang Project Ini
 
-Tim ini fokus membedah studi kasus bisnis dan produk nyata (atau hipotetis) dari berbagai sudut pandang — strategi, produk, operasional, finansial, dan pengguna — untuk menghasilkan insight yang bisa langsung dipakai dalam pengambilan keputusan produk.
+Tim ini fokus membedah studi kasus bisnis dan produk nyata (atau hipotetis) dari berbagai sudut pandang — strategi, produk, operasional, dan pengguna — untuk menghasilkan insight yang bisa langsung dipakai dalam pengambilan keputusan produk.
 
 Output akhir dari setiap case study idealnya bukan sekadar analisis akademis, tapi rekomendasi yang actionable: "apa yang sebaiknya dilakukan tim produk berdasarkan temuan ini?"
 
@@ -47,12 +47,12 @@ itu ke Supabase supaya bisa diakses online / tanpa Docker.
 - Buat pernyataan misi singkat tim (bisa pakai deskripsi yang sudah kamu tulis sebagai starting point).
 
 ### 2. Susun Struktur Tim
-- **Case Lead** — menentukan topik, koordinasi timeline.
-- **Business Analyst** — analisis model bisnis, revenue, market positioning.
-- **Product Analyst** — analisis fitur, UX, product-market fit.
-- **Data/Research Support** — mengumpulkan data pendukung, riset sekunder.
-- **Writer/Editor** — menyusun narasi akhir agar mudah dibaca.
-
+- **Case Lead** — menentukan topik, koordinasi timeline, pembagian jobdesk.
+- **Data Analyst** — analisis model bisnis, dashboard, definisi KPI, bisnis insight & rekomendasi.
+- **Data Engineer** - Setup github dan docker, ETL pipeline, data cleaning & transformation, database.
+- **ML/Forecasting** - feature engineering, training & tuning model, model evaluation.
+- **Frontend** - wireframe & desain figma, UI/UX design, implementasi frontend.
+- **Backend** - API endpoint, database connection, business logic, integrasi model ke web.
 > Untuk tim kecil, satu orang bisa merangkap beberapa peran.
 
 ### 3. Buat Kerangka Kerja (Framework) Analisis
@@ -108,9 +108,5 @@ Simpan template ini di `/templates/case-study-template.md`.
 - Publikasikan case study (blog internal, Notion, Medium, atau repo ini).
 - Minta feedback dari luar tim untuk menguji apakah insight benar-benar actionable.
 - Update case study jika ada data baru yang relevan.
-
-### 11. Bangun Ritme & Kadensa Tim
-- Tentukan target output (misalnya 1 case study per 2 minggu).
-- Retrospektif berkala: apa yang bisa diperbaiki dari proses analisis atau kolaborasi tim.
 
 ---
