@@ -18,7 +18,7 @@ Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebaga
 - Pengelolaan database
 
 
-  ## 📚 Dokumentasi
+## Dokumentasi
 
   Panduan penggunaan lebih detail ada di folder [`docs/`](./docs):
 
