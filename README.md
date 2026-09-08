@@ -33,7 +33,7 @@ Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebaga
 ```
 .
 ├── data/               # Raw & processed data
-├── notebooks/          # Notebook eksplorasi & analisis
+├── src/                # Notebook eksplorasi & analisis
 ├── etl/                # Script ETL pipeline (Data Engineer)
 ├── dashboard/          # Source dashboard (Data Analyst)
 ├── docker/             # Konfigurasi Docker
