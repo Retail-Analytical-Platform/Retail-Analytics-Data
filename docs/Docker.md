@@ -1,7 +1,7 @@
 # Setup PostgreSQL dengan Docker
 
 Tutorial ini menjalankan PostgreSQL lokal lewat Docker supaya semua anggota tim
-bisa latihan query di atas dataset yang sama (lihat [`data/`](data/README.md)),
+bisa latihan query di atas dataset yang sama (lihat [`data/`](/data/README.md),
 tanpa perlu install PostgreSQL langsung di OS masing-masing.
 
 ## Daftar Isi
