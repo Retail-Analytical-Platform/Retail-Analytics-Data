@@ -1,7 +1,7 @@
 # Load CSV ke PostgreSQL (Docker Volume)
 
 Lanjutan dari [Docker.md](Docker.md). Tutorial ini load dataset
-[`data/`](data/README.md) (CSV) ke dalam container `retailspg`, supaya bisa
+[`data/`](/data/README.md) (CSV) ke dalam container `retailspg`, supaya bisa
 langsung dipakai latihan query SQL.
 
 > **Prasyarat**: container `retailspg` sudah jalan (lihat
