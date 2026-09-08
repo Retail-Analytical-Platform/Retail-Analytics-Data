@@ -64,7 +64,7 @@ Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebaga
 
 | Kategori | Tools |
 |---|---|
-| ETL / Data Engineering | _(isi: Python, Airflow, dbt, dll)_ |
-| Database | _(isi: PostgreSQL, MySQL, dll)_ |
-| Dashboard / BI | _(isi: Looker Studio, Power BI, Tableau, Metabase, dll)_ |
+| ETL / Data Engineering | Python |
+| Database | PostgreSQL |
+| Dashboard / BI | Tableau |
 | Infrastruktur | Docker, GitHub |
