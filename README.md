@@ -28,6 +28,7 @@ Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebaga
   Docker project
   - [`docs/supabase-migration.md`](./docs/Supabase-Migration.md) — cara migrasi
   database dengan Supabase
+  - ['docs/schemaDiagram.png'](./docs/schemaDiagram.png)-  visualisasi relasi antar tabel.
 ## Struktur Repository
 
 ```
