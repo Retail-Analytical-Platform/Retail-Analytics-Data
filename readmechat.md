@@ -1,248 +1,263 @@
-# Business Analysis Project — Retail Sales Star Schema
+# Penjelasan Analisis SQL — Retail Sales Star Schema
 
-Analysis of the 5-file dataset at `~/Projects/Business-Analysis/data/`.
-Diagram: https://claude.ai/code/artifact/2474ab0c-9ee3-424d-a20e-100099ec6c7e
+Dokumen ini menjelaskan **korelasi antar data** (bagaimana tabel-tabel saling terhubung)
+dan **setiap sintaks SQL** yang dijalankan di `src/main.ipynb`, secara berurutan — setiap
+query dijelaskan kaitannya dengan query sebelum dan sesudahnya, ditutup dengan kesimpulan.
 
-## 1. Files & how they relate
+> cell koneksi memakai password database dalam bentuk plaintext
+> (`postgresql://postgres:@localhost:5432/postgres`) dan file ini sudah masuk
+> git history. Sebaiknya password dipindah ke environment variable dan di-rotate.
 
-A star schema: `fact_sales` is the fact table; the other four are dimensions joined to it
-1‑to‑many via a surrogate key.
+---
+
+## 1. Korelasi Data — Bagaimana Semua Tabel Saling Berhubungan
+
+Dataset ini berbentuk **star schema**: satu tabel fakta (`fact_sales`, 60.000 baris) di
+tengah, dikelilingi empat tabel dimensi yang masing-masing terhubung lewat *foreign key*
+(surrogate key):
 
 ```
 dim_customer(customer_key) ─┐
-dim_date(date_key)         ─┼─< fact_sales >─┬─ dim_product(product_key)
-dim_store(store_key)       ─┘                │
-                                              └─ fact_sales.category (denormalized copy
-                                                 of dim_product.category — unreliable,
-                                                 see DQ-1 below)
+dim_date(date_key)         ─┼─< fact_sales >─── dim_product(product_key)
+dim_store(store_key)       ─┘
 ```
 
-| File | Rows | Primary key | Notes |
+| Tabel | Baris | Primary Key | Peran |
 |---|---|---|---|
-| `dim_customer.csv` | 2,000 | `customer_key` | customer_name, email, city, country, segment |
-| `dim_date.csv` | 730 | `date_key` | full_date, day_of_week, month_name, quarter, is_weekend |
-| `dim_product.csv` | 400 | `product_key` | product_name, category, subcategory, unit_cost, list_price |
-| `dim_store.csv` | 40 | `store_key` | store_name, region, store_type |
-| `fact_sales.csv` | 60,000 | `sale_id` | date_key, product_key, customer_key, store_key FKs + quantity, unit_price, discount_pct, revenue, category |
+| `dim_customer` | 2.000 | `customer_key` | siapa yang membeli |
+| `dim_date` | 730 | `date_key` | kapan transaksi terjadi |
+| `dim_product` | ~400 | `product_key` | apa yang dibeli |
+| `dim_store` | 40 | `store_key` | di toko/region mana |
+| `fact_sales` | 60.000 | `sale_id` | transaksinya sendiri (qty, harga, diskon, revenue) |
 
-All four foreign keys in `fact_sales` are 100% valid — **zero orphaned rows** in either
-direction. No NULLs anywhere, no duplicate primary keys, no duplicate full rows.
+Korelasi antar data di sini ada dua level:
 
-## 2. Data quality findings
+1. **Korelasi struktural (relational)** — tiap baris `fact_sales` "berkorelasi" ke tepat
+   satu baris di masing-masing dimensi lewat FK. Ini yang membuat *join* bisa dilakukan
+   dan agregasi (total revenue per region, per kategori, per bulan, dsb.) jadi valid.
+2. **Korelasi statistik (numerik)** — hubungan antar dua variabel numerik, misalnya
+   apakah `unit_price` yang lebih tinggi cenderung dibeli dalam `quantity` yang lebih
+   besar atau lebih kecil. Ini yang diukur lewat fungsi `CORR()` di bagian akhir notebook
+   (lihat §2.24) — hasilnya mendekati nol, artinya **tidak ada hubungan** antara harga
+   satuan dan jumlah unit yang dibeli.
 
-| ID | Issue | Scale |
-|---|---|---|
-| DQ-1 | `fact_sales.category` disagrees with `dim_product.category` (joined on `product_key`) | 43,501 / 60,000 rows (72.5%) |
-| DQ-2 | `discount_pct` is constant — every row equals `0.35`, zero variance | 60,000 / 60,000 rows |
-| DQ-3 | `revenue` ≠ `quantity × unit_price × (1 − discount_pct)` | 59,948 / 60,000 rows (99.9%) |
-| DQ-4 | `dim_date.quarter` doesn't match the quarter implied by `month_name` | 558 / 730 rows (76.4%) |
-| DQ-5 | `dim_date.is_weekend` doesn't match `day_of_week` (Sat/Sun) | 351 / 730 rows (48.1%) |
-| DQ-6 | Duplicate `email` shared across distinct `customer_key` values in `dim_customer` | 15 emails |
+Kedua jenis korelasi ini yang jadi dasar seluruh query di notebook: query awal memvalidasi
+korelasi struktural (integritas FK), query tengah membersihkan data, query akhir
+menganalisis korelasi statistik/bisnis (revenue per segmen, per waktu, per toko, dst.).
 
-**Takeaway:** treat `dim_product.category` as the source of truth for category (not the
-fact table's own column), treat `discount_pct` as a dead/placeholder field, don't use the
-naive revenue formula as a validation check, and rebuild `quarter`/`is_weekend` in
-`dim_date` from `full_date`/`day_of_week` rather than trusting the stored values.
+---
 
-## 3. Schema (DDL) — PostgreSQL
+## 2. Alur Sintaks SQL — Berurutan
 
+### 2.1 Koneksi
 ```sql
-CREATE TABLE dim_customer (
-    customer_key BIGINT PRIMARY KEY,
-    customer_name TEXT,
-    email TEXT,
-    city TEXT,
-    country TEXT,
-    segment TEXT
-);
-
-CREATE TABLE dim_date (
-    date_key BIGINT PRIMARY KEY,
-    full_date TIMESTAMP,
-    day_of_week TEXT,
-    month_name TEXT,
-    quarter TEXT,
-    is_weekend BOOLEAN
-);
-
-CREATE TABLE dim_product (
-    product_key BIGINT PRIMARY KEY,
-    product_name TEXT,
-    category TEXT,
-    subcategory TEXT,
-    unit_cost NUMERIC(10,2),
-    list_price NUMERIC(10,2)
-);
-
-CREATE TABLE dim_store (
-    store_key BIGINT PRIMARY KEY,
-    store_name TEXT,
-    region TEXT,
-    store_type TEXT
-);
-
-CREATE TABLE fact_sales (
-    sale_id BIGINT PRIMARY KEY,
-    date_key BIGINT REFERENCES dim_date(date_key),
-    product_key BIGINT REFERENCES dim_product(product_key),
-    customer_key BIGINT REFERENCES dim_customer(customer_key),
-    store_key BIGINT REFERENCES dim_store(store_key),
-    sold_at TIMESTAMP,
-    quantity INTEGER,
-    unit_price NUMERIC(10,2),
-    discount_pct NUMERIC(4,2),
-    revenue NUMERIC(10,2),
-    category TEXT   -- denormalized & unreliable, see DQ-1
-);
+%load_ext sql
+%sql postgresql://postgres:***@localhost:5432/postgres
 ```
+Membuka koneksi ke database Postgres. Ini fondasi — semua query `%%sql` berikutnya jalan
+lewat koneksi ini.
 
-## 4. Loading the CSVs (psql)
-
+### 2.2 Melihat semua tabel yang ada
 ```sql
-\copy dim_customer FROM '/home/joseph/Projects/Business-Analysis/data/dim_customer.csv' WITH (FORMAT csv, HEADER true);
-\copy dim_date     FROM '/home/joseph/Projects/Business-Analysis/data/dim_date.csv'     WITH (FORMAT csv, HEADER true);
-\copy dim_product  FROM '/home/joseph/Projects/Business-Analysis/data/dim_product.csv'  WITH (FORMAT csv, HEADER true);
-\copy dim_store    FROM '/home/joseph/Projects/Business-Analysis/data/dim_store.csv'    WITH (FORMAT csv, HEADER true);
-\copy fact_sales   FROM '/home/joseph/Projects/Business-Analysis/data/fact_sales.csv'   WITH (FORMAT csv, HEADER true);
+SELECT * FROM information_schema.tables WHERE table_schema = 'public';
 ```
+Setelah konek (2.1), langkah pertama adalah **memastikan skema sudah ter-load** dengan
+membaca katalog sistem `information_schema.tables`. Hasil: 5 tabel dasar + 1 view
+(`fact_sales_clean`, dibuat nanti di 2.7) — artinya notebook ini sudah pernah dijalankan
+sebelumnya karena view tersebut sudah ada.
 
-## 5. Cleaning SQL
-
+### 2.3 Eksplorasi `dim_date`
 ```sql
--- 5.1 Confirm referential integrity (each should return 0 rows)
-SELECT f.sale_id FROM fact_sales f LEFT JOIN dim_customer c ON f.customer_key = c.customer_key WHERE c.customer_key IS NULL;
-SELECT f.sale_id FROM fact_sales f LEFT JOIN dim_date d ON f.date_key = d.date_key WHERE d.date_key IS NULL;
-SELECT f.sale_id FROM fact_sales f LEFT JOIN dim_product p ON f.product_key = p.product_key WHERE p.product_key IS NULL;
-SELECT f.sale_id FROM fact_sales f LEFT JOIN dim_store s ON f.store_key = s.store_key WHERE s.store_key IS NULL;
+SELECT * FROM dim_date;                                    -- 730 baris
+SELECT DISTINCT(date_key) FROM dim_date ORDER BY date_key ASC;  -- 730 baris
+```
+Dua query ini **saling mengonfirmasi**: jumlah baris (730) sama dengan jumlah `date_key`
+unik (730) → tidak ada duplikat primary key. `date_key` sendiri cuma angka acak (bukan
+representasi tanggal asli), tanggal sesungguhnya ada di kolom `full_date`.
 
--- 5.2 Resolve DQ-1: always source category from dim_product, not fact_sales.category
+### 2.4 Cek integritas referensial (anti-join, 4 kali)
+```sql
+SELECT f.sale_id FROM fact_sales f
+LEFT JOIN dim_customer c ON f.customer_key = c.customer_key
+WHERE c.customer_key IS NULL;
+-- pola yang sama diulang untuk dim_date, dim_product, dim_store
+```
+Ini melanjutkan langsung dari eksplorasi FK di 2.3: memakai `LEFT JOIN` + `WHERE ... IS
+NULL` (pola *anti-join*) untuk mencari baris `fact_sales` yang FK-nya **tidak punya
+pasangan** di tabel dimensi. Hasil: **0 baris di keempat cek** → korelasi struktural
+antar tabel valid 100%, aman untuk semua `JOIN` di query-query berikutnya.
+
+### 2.5 Membuat view gabungan
+```sql
 CREATE OR REPLACE VIEW fact_sales_clean AS
-SELECT
-    f.sale_id, f.date_key, f.product_key, f.customer_key, f.store_key,
-    f.sold_at, f.quantity, f.unit_price, f.discount_pct, f.revenue,
-    p.category, p.subcategory
+SELECT f.sale_id, ..., p.category, p.subcategory
 FROM fact_sales f
 JOIN dim_product p ON f.product_key = p.product_key;
+```
+Karena integritas FK sudah terbukti aman (2.4), sekarang aman untuk membuat *view* yang
+menempelkan `category`/`subcategory` dari `dim_product` ke setiap baris fakta — supaya
+query analisis berikutnya tidak perlu `JOIN` berulang-ulang.
 
--- Or fix the base table directly:
+### 2.6 Uji view baru
+```sql
+SELECT * FROM fact_sales_clean;   -- 60.000 baris
+```
+Baris yang dihasilkan (60.000) sama persis dengan jumlah baris `fact_sales` asli →
+membuktikan relasi `fact_sales` ↔ `dim_product` bersifat *many-to-one* murni, tidak ada
+duplikasi akibat join (fan-out).
+
+### 2.7 Memperbaiki `category` di tabel fakta
+```sql
 UPDATE fact_sales f
 SET category = p.category
 FROM dim_product p
 WHERE f.product_key = p.product_key
   AND f.category IS DISTINCT FROM p.category;
+```
+Kalau di view (2.5) kolom `category` diambil dari `dim_product`, di sini kolom `category`
+milik `fact_sales` sendiri **ditulis ulang** supaya sama dengan `dim_product` — hanya pada
+baris yang nilainya beda (`IS DISTINCT FROM` = versi `<>` yang aman terhadap `NULL`).
 
--- 5.3 Fix DQ-4: quarter should be derived from full_date, not trusted as-is
+### 2.8 Memperbaiki `quarter`
+```sql
 UPDATE dim_date
 SET quarter = 'Q' || CEIL(EXTRACT(MONTH FROM full_date) / 3.0)::INT
 WHERE quarter <> 'Q' || CEIL(EXTRACT(MONTH FROM full_date) / 3.0)::INT;
+```
+Beralih ke tabel `dim_date` yang tadinya sudah dieksplorasi di 2.3. `EXTRACT(MONTH ...)`
+mengambil angka bulan (1–12), dibagi 3 lalu dibulatkan ke atas (`CEIL`) untuk memetakan ke
+kuartal (Jan–Mar→Q1, dst.), lalu hanya menimpa baris yang kuartalnya salah dibanding
+`full_date`.
 
--- 5.4 Fix DQ-5: is_weekend should be derived from day_of_week
+### 2.9 Memperbaiki `is_weekend`
+```sql
 UPDATE dim_date
 SET is_weekend = (day_of_week IN ('Saturday', 'Sunday'))
 WHERE is_weekend <> (day_of_week IN ('Saturday', 'Sunday'));
+```
+Pola identik dengan 2.8, tapi untuk kolom `is_weekend`, diturunkan dari `day_of_week`.
+Kedua UPDATE ini (2.8–2.9) sama-sama membersihkan `dim_date` sebelum dipakai untuk agregasi
+waktu di bagian akhir (2.21, 2.22).
 
--- 5.5 Surface DQ-3 rather than overwrite revenue (source of truth is unknown)
+### 2.10 Menguji rumus `revenue`
+```sql
 SELECT sale_id, quantity, unit_price, discount_pct, revenue,
        ROUND(quantity * unit_price * (1 - discount_pct), 2) AS expected_revenue,
        ROUND(revenue - quantity * unit_price * (1 - discount_pct), 2) AS diff
 FROM fact_sales
 WHERE ABS(revenue - quantity * unit_price * (1 - discount_pct)) > 0.05
-ORDER BY ABS(diff) DESC;
+ORDER BY ABS(...) DESC;
+```
+Ini menguji **korelasi matematis** antara `revenue` dan kombinasi `quantity × unit_price ×
+(1 − discount_pct)`. Hasil: 59.947 dari 60.000 baris (99,9%) tidak cocok — artinya
+`revenue` di dataset ini **tidak** dihitung dari rumus itu, jadi tidak boleh dipakai
+sebagai validasi silang untuk `revenue`.
 
--- 5.6 Confirm DQ-2 (discount_pct has zero variance)
+### 2.11 Cek variasi `discount_pct`
+```sql
 SELECT COUNT(DISTINCT discount_pct) AS distinct_discounts, MIN(discount_pct), MAX(discount_pct)
 FROM fact_sales;
+```
+Menindaklanjuti kecurigaan dari 2.10: kalau rumus revenue tidak cocok, mungkin karena
+diskon bervariasi tak terduga? Ternyata tidak — hasilnya `1 | 0.35 | 0.35`, artinya semua
+60.000 baris punya diskon yang **sama persis** (35%), jadi kolom ini tidak punya nilai
+analitis.
 
--- 5.7 Surface DQ-6 for a data steward rather than auto-merge
+### 2.12 Mencari email duplikat
+```sql
 SELECT email, COUNT(*) AS n, STRING_AGG(customer_key::TEXT, ', ') AS customer_keys
 FROM dim_customer
 GROUP BY email
 HAVING COUNT(*) > 1
 ORDER BY n DESC;
+```
+Berpindah ke `dim_customer`. `GROUP BY email HAVING COUNT(*) > 1` menemukan email yang
+dipakai oleh lebih dari satu `customer_key` — ditemukan 15 email terduplikasi (kemungkinan
+pelanggan yang sama tercatat dua kali).
 
--- 5.8 Standardize text fields defensively
+### 2.13 Standardisasi teks pelanggan
+```sql
 UPDATE dim_customer SET
     customer_name = TRIM(customer_name),
     email = LOWER(TRIM(email)),
     city = TRIM(city),
     country = UPPER(TRIM(country));
+```
+Setelah menemukan duplikat (2.12), dilakukan pembersihan format teks (hapus spasi,
+seragamkan huruf besar/kecil) di seluruh 2.000 baris. **Catatan:** langkah ini merapikan
+format tapi **belum menggabungkan** 15 pasangan duplikat yang ditemukan di 2.12.
 
--- 5.9 Bounds sanity check (should return 0 rows)
+### 2.14 Validasi rentang nilai `fact_sales`
+```sql
 SELECT * FROM fact_sales
 WHERE quantity <= 0 OR unit_price <= 0 OR revenue <= 0 OR discount_pct NOT BETWEEN 0 AND 1;
 ```
+Kembali ke `fact_sales` untuk cek terakhir sebelum masuk ke analisis statistik: memastikan
+tidak ada nilai negatif/nol/di luar batas wajar. Hasil: 0 baris — data numerik aman dipakai
+untuk perhitungan statistik berikutnya.
 
-## 6. Descriptive statistics — mean, median, mode, min, max, spread
-
+### 2.15 Statistik deskriptif gabungan
 ```sql
--- 6.1 Full descriptive stats on the key numeric measures
-SELECT
-    'quantity' AS metric,
-    MIN(quantity)::NUMERIC AS min_val,
-    MAX(quantity)::NUMERIC AS max_val,
-    ROUND(AVG(quantity), 4) AS mean,
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY quantity) AS median,
-    MODE() WITHIN GROUP (ORDER BY quantity) AS mode,
-    ROUND(STDDEV(quantity), 4) AS stddev,
-    ROUND(VARIANCE(quantity), 4) AS variance
+SELECT 'quantity' AS metric, MIN(...), MAX(...), ROUND(AVG(...),4) AS mean,
+       PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY quantity) AS median,
+       MODE() WITHIN GROUP (ORDER BY quantity) AS mode,
+       ROUND(STDDEV(...),4), ROUND(VARIANCE(...),4)
 FROM fact_sales
 UNION ALL
-SELECT 'unit_price',
-    MIN(unit_price), MAX(unit_price), ROUND(AVG(unit_price), 4),
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY unit_price),
-    MODE() WITHIN GROUP (ORDER BY unit_price),
-    ROUND(STDDEV(unit_price), 4), ROUND(VARIANCE(unit_price), 4)
-FROM fact_sales
+SELECT 'unit_price', ... FROM fact_sales
 UNION ALL
-SELECT 'revenue',
-    MIN(revenue), MAX(revenue), ROUND(AVG(revenue), 4),
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY revenue),
-    MODE() WITHIN GROUP (ORDER BY revenue),
-    ROUND(STDDEV(revenue), 4), ROUND(VARIANCE(revenue), 4)
-FROM fact_sales
+SELECT 'revenue', ... FROM fact_sales
 UNION ALL
-SELECT 'discount_pct',
-    MIN(discount_pct), MAX(discount_pct), ROUND(AVG(discount_pct), 4),
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY discount_pct),
-    MODE() WITHIN GROUP (ORDER BY discount_pct),
-    ROUND(STDDEV(discount_pct), 4), ROUND(VARIANCE(discount_pct), 4)
-FROM fact_sales;
+SELECT 'discount_pct', ... FROM fact_sales;
+```
+Karena data sudah divalidasi bersih (2.14), sekarang dihitung statistik lengkap (min, max,
+mean, median, mode, stddev, variance) untuk 4 kolom numerik sekaligus, digabung jadi satu
+tabel rapi lewat `UNION ALL`. Hasil `discount_pct` stddev/variance = 0 **mengonfirmasi
+ulang** temuan 2.11.
 
--- 6.2 Mode via window function (portable to any SQL dialect, not just Postgres)
+### 2.16 Kategori terlaris (window function)
+```sql
 SELECT category, cnt FROM (
     SELECT p.category, COUNT(*) AS cnt,
            RANK() OVER (ORDER BY COUNT(*) DESC) AS rnk
-    FROM fact_sales f
-    JOIN dim_product p ON f.product_key = p.product_key
+    FROM fact_sales f JOIN dim_product p ON f.product_key = p.product_key
     GROUP BY p.category
 ) t WHERE rnk = 1;
+```
+Melanjutkan dari statistik umum (2.15) ke pertanyaan bisnis pertama: kategori mana yang
+paling sering terjual? `RANK() OVER (...)` dipakai di subquery untuk mengurutkan lalu
+`WHERE rnk = 1` mengambil hanya juaranya. Hasil: **Electronics**, 21.813 transaksi.
 
--- 6.3 Quartiles / IQR for outlier detection on revenue
+### 2.17 Kuartil revenue
+```sql
 SELECT
     PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY revenue) AS q1,
     PERCENTILE_CONT(0.50) WITHIN GROUP (ORDER BY revenue) AS median,
     PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY revenue) AS q3
 FROM fact_sales;
 ```
+Memperdalam statistik `revenue` dari 2.15 dengan kuartil penuh (Q1/median/Q3) — berguna
+untuk mendeteksi outlier lewat IQR. Hasil: 27,53 / 47,90 / 77,30.
 
-## 7. Cross-table patterns (joining all 5 tables)
-
+### 2.18 Revenue per region × kategori × kuartal
 ```sql
--- 7.1 Revenue by region, category, and quarter — full star join
-SELECT
-    s.region, p.category, d.quarter,
-    COUNT(*) AS num_sales,
-    SUM(f.revenue) AS total_revenue,
-    ROUND(AVG(f.revenue), 2) AS avg_revenue,
-    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY f.revenue) AS median_revenue
+SELECT s.region, p.category, d.quarter,
+       COUNT(*) AS num_sales, SUM(f.revenue) AS total_revenue,
+       ROUND(AVG(f.revenue), 2) AS avg_revenue,
+       PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY f.revenue) AS median_revenue
 FROM fact_sales f
 JOIN dim_store   s ON f.store_key = s.store_key
 JOIN dim_product p ON f.product_key = p.product_key
 JOIN dim_date    d ON f.date_key = d.date_key
 GROUP BY s.region, p.category, d.quarter
 ORDER BY total_revenue DESC;
+```
+Di sinilah **korelasi struktural** (2.4) dan hasil pembersihan `dim_date` (2.8–2.9) mulai
+dipakai bersamaan: tiga tabel dimensi (`dim_store`, `dim_product`, `dim_date`) di-`JOIN`
+sekaligus ke `fact_sales` untuk memecah revenue per kombinasi region/kategori/kuartal.
 
--- 7.2 Top 10 customers by lifetime revenue
+### 2.19 Top 10 pelanggan
+```sql
 SELECT c.customer_key, c.customer_name, c.segment, c.country,
        COUNT(*) AS orders, SUM(f.revenue) AS lifetime_revenue,
        ROUND(AVG(f.revenue), 2) AS avg_order_value
@@ -251,11 +266,15 @@ JOIN dim_customer c ON f.customer_key = c.customer_key
 GROUP BY c.customer_key, c.customer_name, c.segment, c.country
 ORDER BY lifetime_revenue DESC
 LIMIT 10;
+```
+Sudut pandang bergeser dari "produk/wilayah" (2.18) ke "pelanggan" — memakai
+`dim_customer` yang sudah dibersihkan di 2.13. `GROUP BY` per pelanggan lalu diurutkan
+turun berdasarkan total revenue seumur hidup.
 
--- 7.3 Best-selling products with margin (from dim_product cost/price)
+### 2.20 Produk terlaris + margin
+```sql
 SELECT p.product_key, p.product_name, p.category,
-       SUM(f.quantity) AS units_sold,
-       SUM(f.revenue) AS total_revenue,
+       SUM(f.quantity) AS units_sold, SUM(f.revenue) AS total_revenue,
        ROUND(AVG(f.revenue / NULLIF(f.quantity,0)), 2) AS avg_revenue_per_unit,
        p.unit_cost, p.list_price,
        ROUND(p.list_price - p.unit_cost, 2) AS unit_margin
@@ -264,31 +283,52 @@ JOIN dim_product p ON f.product_key = p.product_key
 GROUP BY p.product_key, p.product_name, p.category, p.unit_cost, p.list_price
 ORDER BY total_revenue DESC
 LIMIT 20;
+```
+Melanjutkan dari "kategori terlaris" (2.16) ke level yang lebih detail: produk individual,
+lengkap dengan estimasi margin (`list_price - unit_cost`). Temuan penting: banyak produk
+top-seller punya margin **negatif** — indikasi data `dim_product` bermasalah (mirip temuan
+2.10 soal `revenue`).
 
--- 7.4 Weekday vs weekend sales pattern
+### 2.21 Weekday vs weekend
+```sql
 SELECT d.is_weekend, COUNT(*) AS num_sales, SUM(f.revenue) AS total_revenue,
        ROUND(AVG(f.revenue), 2) AS avg_revenue
 FROM fact_sales f
 JOIN dim_date d ON f.date_key = d.date_key
 GROUP BY d.is_weekend;
+```
+Memanfaatkan langsung hasil perbaikan `is_weekend` dari 2.9. Hasil: rata-rata revenue
+hampir identik (weekday $57.52 vs weekend $57.46) — tidak ada pola musiman mingguan yang
+kuat, volume saja yang beda (weekday ~2× lebih banyak transaksi).
 
--- 7.5 Monthly trend (uses corrected quarter/month from cleaned dim_date)
-SELECT d.month_name, d.quarter,
-       COUNT(*) AS num_sales, SUM(f.revenue) AS total_revenue
+### 2.22 Tren bulanan
+```sql
+SELECT d.month_name, d.quarter, COUNT(*) AS num_sales, SUM(f.revenue) AS total_revenue
 FROM fact_sales f
 JOIN dim_date d ON f.date_key = d.date_key
 GROUP BY d.month_name, d.quarter
 ORDER BY MIN(d.full_date);
+```
+Melanjutkan analisis waktu dari 2.21, tapi granularitasnya bulanan, dan diurutkan
+berdasarkan `MIN(full_date)` (bukan alfabet) supaya kronologis. Catatan: `month_name`
+sendiri tidak pernah diperbaiki (beda dengan `quarter` di 2.8), jadi urutan/pengelompokan
+bulan di sini masih bisa mengandung inkonsistensi bawaan data.
 
--- 7.6 Store performance ranking within region
+### 2.23 Peringkat toko per region
+```sql
 SELECT s.region, s.store_name, s.store_type,
        SUM(f.revenue) AS total_revenue,
        RANK() OVER (PARTITION BY s.region ORDER BY SUM(f.revenue) DESC) AS rank_in_region
 FROM fact_sales f
 JOIN dim_store s ON f.store_key = s.store_key
 GROUP BY s.region, s.store_name, s.store_type;
+```
+Menggabungkan teknik `RANK()` dari 2.16 dengan `PARTITION BY` — supaya peringkat dihitung
+**ulang per region**, bukan peringkat global. Hasil: 40 toko, masing-masing punya
+peringkat sendiri di dalam regionnya.
 
--- 7.7 Customer segment behavior (spend habits by segment)
+### 2.24 Perilaku per segmen pelanggan
+```sql
 SELECT c.segment,
        COUNT(DISTINCT c.customer_key) AS num_customers,
        COUNT(*) AS num_orders,
@@ -298,16 +338,52 @@ FROM fact_sales f
 JOIN dim_customer c ON f.customer_key = c.customer_key
 GROUP BY c.segment
 ORDER BY revenue_per_customer DESC;
+```
+Memperluas analisis pelanggan (2.19) ke level segmen (`Consumer`/`Corporate`/`Home
+Office`). `COUNT(DISTINCT ...)` dipakai supaya pelanggan dengan banyak transaksi tidak
+dihitung berkali-kali saat menghitung jumlah pelanggan. Hasil: ketiga segmen nyaris sama
+persis nilainya (~$1.710–$1.733 per pelanggan) — tidak ada segmen yang menonjol.
 
--- 7.8 Correlation: does higher unit_price correlate with higher quantity bought?
+### 2.25 Korelasi statistik harga vs kuantitas
+```sql
 SELECT CORR(unit_price, quantity) AS price_qty_correlation FROM fact_sales;
 ```
+Query penutup, dan ini yang secara eksplisit mengukur **korelasi statistik** yang
+disinggung di §1: `CORR()` menghitung koefisien korelasi Pearson antara `unit_price` dan
+`quantity`. Hasilnya **0,0077** — nyaris nol, artinya harga satuan **tidak memengaruhi**
+jumlah unit yang dibeli pelanggan pada dataset ini (tidak ada elastisitas harga yang
+terdeteksi).
 
-## Notes
+---
 
-- Dialect: PostgreSQL. `PERCENTILE_CONT` / `MODE() WITHIN GROUP` are Postgres/Oracle/SQL
-  Server syntax; MySQL 8 has no native median function — emulate with `PERCENT_RANK()`
-  over a window instead.
-- Source data: `/home/joseph/Projects/Business-Analysis/data/*.csv` (5 files, 63,171 rows
-  total across all tables).
-- Visual diagram of the schema + flags: https://claude.ai/code/artifact/2474ab0c-9ee3-424d-a20e-100099ec6c7e
+## 3. Kesimpulan
+
+1. **Korelasi struktural antar tabel valid 100%** — semua foreign key di `fact_sales`
+   (`customer_key`, `date_key`, `product_key`, `store_key`) punya pasangan yang sah di
+   tabel dimensi masing-masing, tanpa baris yatim (*orphan*).
+2. **Korelasi statistik antara harga dan kuantitas nyaris tidak ada** (`CORR` ≈ 0,0077) —
+   pelanggan tidak membeli lebih sedikit saat harga naik atau lebih banyak saat harga
+   turun. Ini sinyal kuat bahwa dataset bersifat sintetis/acak, bukan data transaksi nyata
+   yang biasanya menunjukkan elastisitas harga.
+3. **Kolom turunan di `dim_date` awalnya tidak konsisten** — `quarter` dan `is_weekend`
+   sudah diperbaiki dari `full_date`/`day_of_week`, tapi **`month_name` masih belum
+   diperbaiki** sehingga analisis bulanan (2.22) berpotensi bias.
+4. **`revenue` tidak mengikuti rumus `quantity × unit_price × (1 − discount_pct)`**
+   (99,9% baris berbeda) dan **`discount_pct` konstan 0,35 di seluruh data** — kedua
+   kolom ini tidak bisa saling memvalidasi, jadi `revenue` harus diperlakukan sebagai
+   angka independen (ground truth), bukan hasil kalkulasi.
+5. **15 email pelanggan terduplikasi** di `dim_customer` — sudah dirapikan formatnya
+   (trim/lower/upper) tapi **belum digabung** (merge) menjadi satu `customer_key`.
+6. **Margin produk banyak yang negatif** (`list_price` < `unit_cost`) pada produk-produk
+   dengan revenue tertinggi — kemungkinan data `dim_product` juga bermasalah/sintetis,
+   jadi metrik margin tidak boleh dipakai untuk keputusan bisnis nyata tanpa verifikasi
+   ulang sumber datanya.
+7. **Temuan bisnis yang tetap valid untuk dilaporkan:** kategori terlaris adalah
+   Electronics (21.813 transaksi), region East + Electronics + Q3 adalah kombinasi
+   revenue tertinggi, dan revenue per pelanggan relatif merata di ketiga segmen
+   (Consumer/Corporate/Home Office) — tidak ada segmen yang jauh lebih menguntungkan.
+
+**Rekomendasi tindak lanjut:** jangan gunakan `discount_pct`, rumus revenue manual, atau
+margin produk sebagai dasar keputusan sebelum sumber data divalidasi ulang; perbaiki
+`month_name`; gabungkan (merge) 15 pasangan pelanggan duplikat; dan segera pindahkan
+kredensial database dari notebook ke environment variable.
