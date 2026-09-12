@@ -22,13 +22,13 @@ Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebaga
 
   Panduan penggunaan lebih detail ada di folder [`docs/`](./docs):
 
-  - [`docs/data-integration-docker.md`](./docs/Data-Integration-Docker.md) —
+  - [`docs/data-integration-docker.md`](./docs/setup/Data-Integration-Docker.md) —
   cara integrasi data menggunakan Docker
-  - [`docs/docker.md`](./docs/Docker.md) — cara setup & menjalankan environment
+  - [`docs/docker.md`](./docs/setup/Docker.md) — cara setup & menjalankan environment
   Docker project
-  - [`docs/supabase-migration.md`](./docs/Supabase-Migration.md) — cara migrasi
+  - [`docs/supabase-migration.md`](./docs/setup/Supabase-Migration.md) — cara migrasi
   database dengan Supabase
-  - ['docs/schemaDiagram.png'](./docs/schemaDiagram.png)-  visualisasi relasi antar tabel.
+  - [`docs/schemaDiagram.png`](./docs/setup/schemaDiagram.png)-  visualisasi relasi antar tabel.
 ## Struktur Repository
 
 ```
