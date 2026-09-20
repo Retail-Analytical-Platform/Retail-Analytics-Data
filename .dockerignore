@@ -1,0 +1,8 @@
+.git
+.env
+secrets
+data
+dashboard
+docs
+__pycache__
+
