@@ -1,39 +1,39 @@
-# Setup PostgreSQL dengan Docker
+# Setting up PostgreSQL with Docker
 
-Tutorial ini menjalankan PostgreSQL lokal lewat Docker supaya semua anggota tim
-bisa latihan query di atas dataset yang sama (lihat [`data/`](/data/README.md),
-tanpa perlu install PostgreSQL langsung di OS masing-masing.
+This tutorial runs PostgreSQL locally via Docker so every team member can
+practice queries against the same dataset (see [`data/`](/data/README.md)),
+without installing PostgreSQL directly on their own OS.
 
-## Daftar Isi
+## Table of Contents
 
-1. [Pasang & aktifkan Docker](#1-pasang--aktifkan-docker)
-2. [Jalankan PostgreSQL di container](#2-jalankan-postgresql-di-container)
-3. [Alternatif: docker-compose](#3-alternatif-docker-compose)
-4. [Connect dari VS Code (extension PostgreSQL)](#4-connect-dari-vs-code-extension-postgresql)
-5. [Command Docker sehari-hari](#5-command-docker-sehari-hari)
+1. [Install & enable Docker](#1-install--enable-docker)
+2. [Run PostgreSQL in a container](#2-run-postgresql-in-a-container)
+3. [Alternative: docker-compose](#3-alternative-docker-compose)
+4. [Connect from VS Code (PostgreSQL extension)](#4-connect-from-vs-code-postgresql-extension)
+5. [Everyday Docker commands](#5-everyday-docker-commands)
 
-Lanjut load dataset `data/` ke database → [Data-Integration-Docker.md](Data-Integration-Docker.md)
+Next, load the `data/` dataset into the database → [Data-Integration-Docker.md](Data-Integration-Docker.md)
 
 ---
 
-## 1. Pasang & aktifkan Docker
+## 1. Install & enable Docker
 
 ```bash
-# nyalakan Docker sekarang, dan otomatis saat boot
+# start Docker now, and automatically on boot
 sudo systemctl enable --now docker
 
-# supaya user bisa jalanin docker tanpa sudo
+# so the user can run docker without sudo
 sudo usermod -aG docker "$USER"
 ```
 
-Setelah itu **logout/login ulang** (atau `newgrp docker` di terminal yang
-sedang aktif) supaya perubahan grup berlaku. Cek instalasinya:
+After that, **log out and log back in** (or run `newgrp docker` in the current
+terminal) for the group change to take effect. Check the installation:
 
 ```bash
 docker run hello-world
 ```
 
-## 2. Jalankan PostgreSQL di container
+## 2. Run PostgreSQL in a container
 
 ```bash
 docker run --name retailspg \
@@ -43,24 +43,24 @@ docker run --name retailspg \
   -d postgres:16
 ```
 
-### Penjelasan command
+### Command breakdown
 
-| Bagian | Fungsi |
+| Part | Purpose |
 |---|---|
-| `docker run` | menjalankan container baru |
-| `--name retailspg` | nama container → `retailspg` (retail store postgres) |
-| `-e POSTGRES_PASSWORD=...` | environment variable password yang diminta image `postgres` |
-| `-p 5432:5432` | mapping port `host:container` — 5432 adalah port default PostgreSQL |
-| `-v retailspg-data:/var/lib/postgresql/data` | volume lokal untuk menyimpan data. `/var/lib/postgresql/data` adalah path tempat PostgreSQL menyimpan tabel, jadi kalau container dihapus, data tetap ada di volume `retailspg-data` dan bisa dipakai lagi begitu container baru dibuat |
-| `-d` | jalan di background (detached), jadi tetap hidup walau terminal ditutup |
-| `postgres:16` | image yang dipakai — PostgreSQL versi 16 |
+| `docker run` | runs a new container |
+| `--name retailspg` | names the container `retailspg` (retail store postgres) |
+| `-e POSTGRES_PASSWORD=...` | environment variable password required by the `postgres` image |
+| `-p 5432:5432` | maps `host:container` ports — 5432 is PostgreSQL's default port |
+| `-v retailspg-data:/var/lib/postgresql/data` | local volume for storing data. `/var/lib/postgresql/data` is where PostgreSQL physically stores its tables, so if the container is removed, the data still lives in the `retailspg-data` volume and can be reused once a new container is created |
+| `-d` | runs in the background (detached), so it stays alive even if the terminal is closed |
+| `postgres:16` | the image used — PostgreSQL version 16 |
 
 
-## 3. Alternatif: docker-compose
+## 3. Alternative: docker-compose
 
-Untuk project yang lebih permanen, `docker-compose.yml` lebih enak karena
-konfigurasinya tersimpan di repo (repeatable & versionable), tidak perlu
-mengetik ulang command `docker run` setiap kali:
+For a more permanent project, `docker-compose.yml` is more convenient because
+the configuration is stored in the repo (repeatable & versionable), so you
+don't need to retype the `docker run` command every time:
 
 ```yaml
 services:
@@ -79,38 +79,38 @@ services:
 ```
 
 ```bash
-docker compose up -d      # jalankan di background
-docker compose ps         # cek status
-docker compose logs -f    # lihat log secara live
-docker compose down       # stop (tambah -v untuk sekalian hapus volume/data)
+docker compose up -d      # run in the background
+docker compose ps         # check status
+docker compose logs -f    # view logs live
+docker compose down       # stop (add -v to also remove the volume/data)
 ```
 
-## 4. Connect dari VS Code (extension PostgreSQL)
+## 4. Connect from VS Code (PostgreSQL extension)
 
-1. Install extension **PostgreSQL** di VS Code.
-2. Klik ikon PostgreSQL (elephant icon) di Activity Bar, atau
+1. Install the **PostgreSQL** extension in VS Code.
+2. Click the PostgreSQL icon (elephant icon) in the Activity Bar, or
    `Ctrl+Shift+P` → **PostgreSQL: New Connection**.
-3. Isi form koneksi seperti di bawah — sesuaikan **Password** dengan yang
-   kamu set di step 2:
-   
+3. Fill in the connection form as below — match **Password** to the one you
+   set in step 2:
+
 
    | Field | Value |
    |---|---|
    | Host | `127.0.0.1` |
    | Port | `5432` |
    | Username | `postgres` |
-   | Password | password dari `POSTGRES_PASSWORD` di step 2 |
+   | Password | the password from `POSTGRES_PASSWORD` in step 2 |
    | Database | `postgres` |
 
-4. Klik **Save**/**Connect**. Sidebar akan menampilkan tree database →
-   schema → table.
+4. Click **Save**/**Connect**. The sidebar will show the database → schema →
+   table tree.
 
-## 5. Command Docker sehari-hari
+## 5. Everyday Docker commands
 
 ```bash
-docker ps                                            # lihat container yang jalan
-docker exec -it retailspg psql -U postgres            # masuk ke psql di dalam container
-docker stop retailspg                                 # stop container
-docker start retailspg                                # jalankan lagi (data tetap ada karena volume)
-docker rm -f retailspg                                # hapus container (volume retailspg-data tetap ada)
+docker ps                                            # view running containers
+docker exec -it retailspg psql -U postgres            # enter psql inside the container
+docker stop retailspg                                 # stop the container
+docker start retailspg                                # start it again (data persists via the volume)
+docker rm -f retailspg                                # remove the container (retailspg-data volume persists)
 ```
