@@ -1,71 +1,73 @@
 # Retail Analytics Platform
 
 
-## Tim & Role
+## Team & Roles
 
-Project ini dikerjakan secara kolaboratif dengan pembagian tanggung jawab sebagai berikut:
+This project is worked on collaboratively, with responsibilities split as follows:
 
 ### Data Analyst
-- Analisis model bisnis
-- Membuat dashboard
-- Menentukan definisi KPI
-- Menyusun business insight & rekomendasi
+- Business model analysis
+- Building dashboards
+- Defining KPIs
+- Writing business insights & recommendations
 
 ### Data Engineer
-- Setup GitHub & Docker
-- Membangun ETL pipeline
+- GitHub & Docker setup
+- Building the ETL pipeline
 - Data cleaning & transformation
-- Pengelolaan database
+- Database management
 
 
-## Dokumentasi
+## Documentation
 
-  Panduan penggunaan lebih detail ada di folder [`docs/`](./docs):
+  More detailed usage guides are in the [`docs/`](./docs) folder:
 
   - [`docs/data-integration-docker.md`](./docs/setup/Data-Integration-Docker.md) —
-  cara integrasi data menggunakan Docker
-  - [`docs/docker.md`](./docs/setup/Docker.md) — cara setup & menjalankan environment
-  Docker project
-  - [`docs/supabase-migration.md`](./docs/setup/Supabase-Migration.md) — cara migrasi
-  database dengan Supabase
-  - [`docs/schemaDiagram.png`](./docs/setup/schemaDiagram.png)-  visualisasi relasi antar tabel.
-## Struktur Repository
+  how to integrate data using Docker
+  - [`docs/docker.md`](./docs/setup/Docker.md) — how to set up and run the project's
+  Docker environment
+  - [`docs/supabase-migration.md`](./docs/setup/Supabase-Migration.md) — how to
+  migrate the database with Supabase
+  - [`docs/schemaDiagram.png`](./docs/setup/schemaDiagram.png) — visualization of the
+  relationships between tables.
+
+## Repository Structure
 
 ```
 .
 ├── data/               # Raw & processed data
-├── src/                # Notebook eksplorasi & analisis
-├── etl/                # Script ETL pipeline (Data Engineer)
-├── dashboard/          # Source dashboard (Data Analyst)
-├── docker/             # Konfigurasi Docker
-├── docs/               # Dokumentasi, definisi KPI, insight report
+├── src/                # Exploration & analysis notebooks
+├── etl/                # ETL pipeline scripts (Data Engineer)
+├── dashboard/          # Dashboard source (Data Analyst)
+├── docker/             # Docker configuration
+├── docs/               # Documentation, KPI definitions, insight reports
 └── README.md
 ```
 
-## Cara Menjalankan
+## How to Run
 
-1. Clone repository
+1. Clone the repository
    ```bash
-   git clone https://github.com/<org-atau-username>/<repo>.git
+   git clone https://github.com/<org-or-username>/<repo>.git
    cd <repo>
    ```
-2. (Data Engineer) Jalankan environment via Docker
+2. (Data Engineer) Start the environment via Docker
    ```bash
    docker compose up -d
    ```
-3. (Data Analyst) Buka dashboard / notebook sesuai instruksi di folder masing-masing.
+3. (Data Analyst) Open the dashboard / notebook according to the instructions in each folder.
 
-## Alur Kerja (Workflow)
+## Workflow
 
-1. **Data Engineer** menyiapkan data mentah → ETL → data bersih di database.
-2. **Data Analyst** mengambil data bersih → analisis → dashboard & insight.
-3. Perubahan dikerjakan di branch masing-masing, lalu diajukan lewat Pull Request untuk direview sebelum merge ke `main`.
+1. **Data Engineer** prepares raw data → ETL → clean data in the database.
+2. **Data Analyst** takes the clean data → analysis → dashboard & insights.
+3. Changes are made in individual branches, then submitted via Pull Request for review before merging into `main`.
 
 ## Tech Stack
 
-| Kategori | Tools |
+| Category | Tools |
 |---|---|
 | ETL / Data Engineering | Python |
 | Database | PostgreSQL |
 | Dashboard / BI | Tableau |
-| Infrastruktur | Docker, GitHub |
+| Infrastructure | Docker, GitHub |
