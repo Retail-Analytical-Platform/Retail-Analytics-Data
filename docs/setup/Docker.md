@@ -8,9 +8,8 @@ without installing PostgreSQL directly on their own OS.
 
 1. [Install & enable Docker](#1-install--enable-docker)
 2. [Run PostgreSQL in a container](#2-run-postgresql-in-a-container)
-3. [Alternative: docker-compose](#3-alternative-docker-compose)
-4. [Connect from VS Code (PostgreSQL extension)](#4-connect-from-vs-code-postgresql-extension)
-5. [Everyday Docker commands](#5-everyday-docker-commands)
+3. [Connect from VS Code (PostgreSQL extension)](#3-connect-from-vs-code-postgresql-extension)
+4. [Everyday Docker commands](#4-everyday-docker-commands)
 
 Next, load the `data/` dataset into the database → [Data-Integration-Docker.md](Data-Integration-Docker.md)
 
@@ -35,63 +34,75 @@ docker run hello-world
 
 ## 2. Run PostgreSQL in a container
 
+The `postgres` service is already defined in this repo's [`compose.yaml`](/compose.yaml),
+so there's no `docker run` command to type — just start it:
+
 ```bash
-docker run --name retailspg \
-  -e POSTGRES_PASSWORD=passgw \
-  -p 5432:5432 \
-  -v retailspg-data:/var/lib/postgresql/data \
-  -d postgres:16
+docker compose up -d postgres
 ```
 
-### Command breakdown
+The password isn't a plain environment variable — it's a **Docker secret**,
+read from a local file instead of being stored in the compose file or visible
+in `docker inspect`. Create it once, before the first start:
 
-| Part | Purpose |
-|---|---|
-| `docker run` | runs a new container |
-| `--name retailspg` | names the container `retailspg` (retail store postgres) |
-| `-e POSTGRES_PASSWORD=...` | environment variable password required by the `postgres` image |
-| `-p 5432:5432` | maps `host:container` ports — 5432 is PostgreSQL's default port |
-| `-v retailspg-data:/var/lib/postgresql/data` | local volume for storing data. `/var/lib/postgresql/data` is where PostgreSQL physically stores its tables, so if the container is removed, the data still lives in the `retailspg-data` volume and can be reused once a new container is created |
-| `-d` | runs in the background (detached), so it stays alive even if the terminal is closed |
-| `postgres:16` | the image used — PostgreSQL version 16 |
+```bash
+mkdir -p secrets
+openssl rand -base64 24 | tr -d '/+=' | head -c 24 > secrets/postgres_password.txt
+```
 
+This file is gitignored (`secrets/*` in `.gitignore`) — it stays local and is
+never committed.
 
-## 3. Alternative: docker-compose
-
-For a more permanent project, `docker-compose.yml` is more convenient because
-the configuration is stored in the repo (repeatable & versionable), so you
-don't need to retype the `docker run` command every time:
+### `compose.yaml` breakdown
 
 ```yaml
 services:
   postgres:
     image: postgres:16
-    container_name: pg-dev
+    container_name: retailspg
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mysecret
-      POSTGRES_DB: myapp
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - retailspg-data:/var/lib/postgresql/data
+    secrets:
+      - postgres_password
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+
+volumes:
+  retailspg-data:
 ```
+
+| Part | Purpose |
+|---|---|
+| `container_name: retailspg` | names the container `retailspg` (retail store postgres) — referenced throughout these docs |
+| `POSTGRES_PASSWORD_FILE` | tells the `postgres` image to read its password from a file instead of an env var, so the plaintext value never appears in `docker inspect` or `docker compose config` |
+| `secrets: postgres_password` | mounts the secret read-only at `/run/secrets/postgres_password` inside the container |
+| `-p 5432:5432` (`ports`) | maps `host:container` ports — 5432 is PostgreSQL's default port |
+| `retailspg-data:/var/lib/postgresql/data` (`volumes`) | local volume for storing data. `/var/lib/postgresql/data` is where PostgreSQL physically stores its tables, so if the container is removed, the data still lives in the `retailspg-data` volume and can be reused once a new container is created |
+| `restart: unless-stopped` | stays alive across reboots/crashes, similar in spirit to `docker run -d` |
+| `postgres:16` | the image used — PostgreSQL version 16 |
 
 ```bash
-docker compose up -d      # run in the background
-docker compose ps         # check status
-docker compose logs -f    # view logs live
-docker compose down       # stop (add -v to also remove the volume/data)
+docker compose up -d postgres  # run in the background
+docker compose ps              # check status
+docker compose logs -f postgres # view logs live
+docker compose down            # stop (add -v to also remove the volume/data)
 ```
 
-## 4. Connect from VS Code (PostgreSQL extension)
+## 3. Connect from VS Code (PostgreSQL extension)
 
 1. Install the **PostgreSQL** extension in VS Code.
 2. Click the PostgreSQL icon (elephant icon) in the Activity Bar, or
    `Ctrl+Shift+P` → **PostgreSQL: New Connection**.
-3. Fill in the connection form as below — match **Password** to the one you
-   set in step 2:
+3. Fill in the connection form as below — match **Password** to the value in
+   `secrets/postgres_password.txt`:
 
 
    | Field | Value |
@@ -99,13 +110,13 @@ docker compose down       # stop (add -v to also remove the volume/data)
    | Host | `127.0.0.1` |
    | Port | `5432` |
    | Username | `postgres` |
-   | Password | the password from `POSTGRES_PASSWORD` in step 2 |
+   | Password | the value in `secrets/postgres_password.txt` |
    | Database | `postgres` |
 
 4. Click **Save**/**Connect**. The sidebar will show the database → schema →
    table tree.
 
-## 5. Everyday Docker commands
+## 4. Everyday Docker commands
 
 ```bash
 docker ps                                            # view running containers
