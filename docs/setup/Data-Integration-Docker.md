@@ -2,10 +2,10 @@
 
 Continuation of [Docker.md](Docker.md). This tutorial loads the
 [`data/`](/data/README.md) dataset (CSV) into the `retailspg` container, so it
-can be used right away for SQL query practice.
+can be used directly for SQL query practice.
 
 > **Prerequisite**: the `retailspg` container must already be running (see
-> [Docker.md § 2](Docker.md#2-jalankan-postgresql-di-container)). Check with
+> [Docker.md § 2](Docker.md#2-run-postgresql-in-a-container)). Check with
 > `docker ps` — a container named `retailspg` should appear.
 
 ## Table of Contents
@@ -14,26 +14,24 @@ can be used right away for SQL query practice.
 2. [Create tables (schema)](#2-create-tables-schema)
 3. [Copy CSV into the container](#3-copy-csv-into-the-container)
 4. [Load CSV into tables](#4-load-csv-into-tables)
-5. [Verification](#5-verification)
+5. [Verify](#5-verify)
 6. [Reload from scratch](#6-reload-from-scratch)
 
 ---
 
 ## 1. Brief concept
 
-`psql` running **inside the container** cannot see files on our (host)
-computer directly. So the flow has two steps:
+`psql` running **inside the container** cannot see files on our computer
+(host) directly. So the flow is two steps:
 
-1. **`docker cp`** — copy the file from the host into the container's
-   filesystem.
-2. **`COPY` / `\copy`** — a PostgreSQL command that reads that file and
+1. **`docker cp`** — copy the file from the host into the container's filesystem.
+2. **`COPY` / `\copy`** — the PostgreSQL command that reads that file and
    inserts its contents into a table.
 
-As for "stored in the volume" — that happens automatically. The
-`retailspg-data` volume is mounted to `/var/lib/postgresql/data`, which is the
-path where PostgreSQL physically stores all its tables. As soon as data goes
-in via `COPY`, it's automatically already in the volume — there's no separate
-step for "saving to the volume."
+As for "stored in the volume" — that's automatic. The `retailspg-data` volume
+is mounted to `/var/lib/postgresql/data`, which is where PostgreSQL physically
+stores all its tables. Once data goes in via `COPY`, it's automatically in the
+volume — there's no separate "save to volume" step.
 
 ## 2. Create tables (schema)
 
@@ -62,13 +60,12 @@ docker cp data/fact_sales.csv   retailspg:/fact_sales.csv
 
 ## 4. Load CSV into tables
 
-Disclaimer: if a duplicate key error appears during copying, try refreshing
-the SQL table view — that error occurs because the table already has data in
-the database.
+Disclaimer: if a duplicate key error appears during copy, try refreshing the
+SQL table first — that error occurs because the table already has data in it.
 
 Order **matters**: dimension tables first, `fact_sales` last — because
-`fact_sales` has foreign keys to all four dimensions (a sales row can't
-reference a customer/product/store/date that doesn't exist yet).
+`fact_sales` has foreign keys to all four dimensions (a sale row can't point
+to a customer/product/store/date that doesn't exist yet).
 
 ```bash
 docker exec retailspg psql -U postgres -c "\copy dim_date     FROM '/dim_date.csv'     WITH (FORMAT csv, HEADER true)"
@@ -79,13 +76,13 @@ docker exec retailspg psql -U postgres -c "\copy fact_sales   FROM '/fact_sales.
 ```
 
 Brief explanation:
-- `\copy` — a client-side `psql` command (note the `\` in front) that reads
+- `\copy` — a `psql` client-side command (note the `\` in front) that reads
   the file and sends it to the server.
-- `WITH (FORMAT csv, HEADER true)` — specifies the CSV format, and
-  `HEADER true` so the first row (column names) is skipped rather than being
-  inserted as data.
+- `WITH (FORMAT csv, HEADER true)` — the file format is CSV, and `HEADER
+  true` means the first row (column names) is skipped rather than inserted
+  as data.
 
-## 5. Verification
+## 5. Verify
 
 ```bash
 docker exec retailspg psql -U postgres -c "
@@ -112,21 +109,19 @@ integrity has already been verified in
 
 ## 6. Reload from scratch
 
-`COPY` will fail if a table already has data in it (primary key conflict). To
-reload starting from empty:
+`COPY` will fail if the tables already contain data (primary key conflict).
+To reload from empty:
 
 ```bash
 docker exec retailspg psql -U postgres -c "
   TRUNCATE fact_sales, dim_date, dim_product, dim_customer, dim_store CASCADE;"
 ```
 
-Then repeat step 4. Or, if you want to start completely from zero (including
-removing the volume), see
-[Docker.md § 5](Docker.md#5-command-docker-sehari-hari) for `docker rm -f`,
-then recreate the container.
+Then repeat step 4. Or, for a true clean slate (including the volume), see
+[Docker.md § 5](Docker.md#5-everyday-docker-commands) for `docker rm -f` and
+recreating the container.
 
 ---
 
-Want this data to be online / accessible to the team without everyone running
-Docker themselves? Continue to
-[Supabase-Migration.md](Supabase-Migration.md).
+Want this data online / accessible to the team without everyone running
+Docker themselves? Continue to [Supabase-Migration.md](Supabase-Migration.md).

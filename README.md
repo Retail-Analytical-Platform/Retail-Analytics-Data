@@ -1,14 +1,15 @@
 # Retail Analytics Platform
 
+
 ## Team & Roles
 
-This project is carried out collaboratively with the following division of responsibilities:
+This project is worked on collaboratively, with responsibilities split as follows:
 
 ### Data Analyst
 - Business model analysis
 - Building dashboards
 - Defining KPIs
-- Compiling business insights & recommendations
+- Writing business insights & recommendations
 
 ### Data Engineer
 - GitHub & Docker setup
@@ -16,16 +17,19 @@ This project is carried out collaboratively with the following division of respo
 - Data cleaning & transformation
 - Database management
 
+
 ## Documentation
 
-  More detailed usage guides are available in the [`docs/`](./docs) folder:
+  More detailed usage guides are in the [`docs/`](./docs) folder:
 
-  - [`docs/data-integration-docker.md`](./docs/Data-Integration-Docker.md) —
+  - [`docs/data-integration-docker.md`](./docs/setup/Data-Integration-Docker.md) —
   how to integrate data using Docker
-  - [`docs/docker.md`](./docs/Docker.md) — how to set up & run the project's
+  - [`docs/docker.md`](./docs/setup/Docker.md) — how to set up and run the project's
   Docker environment
-  - [`docs/supabase-migration.md`](./docs/Supabase-Migration.md) — how to
+  - [`docs/supabase-migration.md`](./docs/setup/Supabase-Migration.md) — how to
   migrate the database with Supabase
+  - [`docs/schemaDiagram.png`](./docs/setup/schemaDiagram.png) — visualization of the
+  relationships between tables.
 
 ## Repository Structure
 
@@ -47,7 +51,7 @@ This project is carried out collaboratively with the following division of respo
    git clone https://github.com/<org-or-username>/<repo>.git
    cd <repo>
    ```
-2. (Data Engineer) Run the environment via Docker
+2. (Data Engineer) Start the environment via Docker
    ```bash
    docker compose up -d
    ```
@@ -57,7 +61,7 @@ This project is carried out collaboratively with the following division of respo
 
 1. **Data Engineer** prepares raw data → ETL → clean data in the database.
 2. **Data Analyst** takes the clean data → analysis → dashboard & insights.
-3. Changes are made on individual branches, then submitted via Pull Request for review before merging into `main`.
+3. Changes are made in individual branches, then submitted via Pull Request for review before merging into `main`.
 
 ## Tech Stack
 
