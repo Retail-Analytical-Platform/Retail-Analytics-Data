@@ -67,7 +67,7 @@ This project is worked on collaboratively, with responsibilities split as follow
 
 | Category | Tools |
 |---|---|
-| ETL / Data Engineering | Python |
+| ETL / Data Engineering | PostgreSQL / SQL |
 | Database | PostgreSQL |
 | Dashboard / BI | Tableau |
 | Infrastructure | Docker, GitHub |

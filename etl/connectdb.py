@@ -3,7 +3,7 @@ from pathlib import Path
 from sqlalchemy import create_engine
 
 def get_database_url() -> str:
-    docker_secret = Path("/run/secrets/database_url")
+    docker_secret = Path("secrets/database_url.txt")
     if docker_secret.exists():
         return docker_secret.read_text().strip()
 
