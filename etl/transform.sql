@@ -1,4 +1,4 @@
--- transform.sql  (replaces the old file)
+-- transform.sql  (Option A: fact_sales keeps its ORIGINAL 4 categories, 42/26/20/12)
 CREATE SCHEMA IF NOT EXISTS etl;
 
 CREATE OR REPLACE FUNCTION etl.transform()
@@ -9,8 +9,11 @@ DECLARE
     src_month_bad  integer;
     src_neg_margin integer;
     mismatch_rate  numeric;
+    category_count integer;
+    bad_distribution boolean;
+    cat_match_pct  numeric;
 BEGIN
-    -- raw_sales (CSV) is now OPTIONAL: it is only used for the category audit table.
+    -- raw_sales (CSV) = authoritative original category. If it is not loaded, staging.fact_sales.category is used.
     IF EXISTS (SELECT 1 FROM staging.raw_sales) THEN
         PERFORM etl.validate_raw_sales();
     END IF;
@@ -52,28 +55,30 @@ BEGIN
 
     CREATE TABLE transformed.dim_product AS
     WITH base AS (
-        SELECT product_key, btrim(product_name) AS product_name, btrim(subcategory) AS subcategory
+        SELECT product_key, btrim(product_name) AS product_name,
+               btrim(category) AS category, btrim(subcategory) AS subcategory
         FROM staging.dim_product
     ), cat AS (
-        SELECT b.product_key, b.product_name, b.subcategory, m.category
+        -- category = original 4-value label (kept as is); product_group = corrected by product name
+        SELECT b.product_key, b.product_name, b.category, b.subcategory, m.category AS product_group
         FROM base b LEFT JOIN etl.product_category_map m ON m.product_name = b.product_name
     ), priced AS (
         SELECT c.*, r.unit_cost, r.list_price, r.rule_id AS pricing_rule_id
         FROM cat c
         LEFT JOIN LATERAL (
             SELECT x.* FROM etl.pricing_rules x
-            WHERE x.category = c.category AND c.product_name ILIKE x.name_pattern
+            WHERE x.category = c.product_group AND c.product_name ILIKE x.name_pattern
             ORDER BY length(x.name_pattern) DESC, x.rule_id LIMIT 1
         ) r ON true
     )
-    SELECT product_key, product_name, category, subcategory, unit_cost, list_price,
+    SELECT product_key, product_name, category, product_group, subcategory, unit_cost, list_price,
            unit_cost > list_price AS cost_gt_price,
            round((list_price - unit_cost) / nullif(list_price, 0) * 100, 2) AS margin_pct,
            pricing_rule_id
     FROM priced;
 
-    IF EXISTS (SELECT 1 FROM transformed.dim_product WHERE category IS NULL) THEN
-        RAISE EXCEPTION 'product without a category: add it to etl.product_category_map';
+    IF EXISTS (SELECT 1 FROM transformed.dim_product WHERE product_group IS NULL) THEN
+        RAISE EXCEPTION 'product without a product_group: add it to etl.product_category_map';
     END IF;
     IF EXISTS (SELECT 1 FROM transformed.dim_product WHERE pricing_rule_id IS NULL) THEN
         RAISE EXCEPTION 'product without a pricing rule: add it to etl.pricing_rules';
@@ -131,7 +136,7 @@ BEGIN
 
     CREATE TABLE transformed.dim_store AS TABLE staging.dim_store;
 
-    -- ------ Issues 1, 7, 8: fact_sales (Option B: category derived from dim_product) ------
+    -- ------ Issues 1, 2, 7: fact_sales (category = original sale category) ------
     CREATE TABLE transformed.fact_sales AS
     WITH qrule AS (
         SELECT p.product_key, r.quantity_basis,
@@ -139,7 +144,7 @@ BEGIN
         FROM transformed.dim_product p
         LEFT JOIN LATERAL (
             SELECT q.* FROM etl.quantity_rules q
-            WHERE q.category = p.category AND p.product_name ILIKE q.name_pattern
+            WHERE q.category = p.product_group AND p.product_name ILIKE q.name_pattern
             ORDER BY length(q.name_pattern) DESC, q.rule_id LIMIT 1
         ) r ON true
     )
@@ -147,7 +152,9 @@ BEGIN
            coalesce(m.survivor_key, f.customer_key) AS customer_key,
            f.store_key, f.sold_at, f.quantity, f.unit_price, f.discount_pct,
            f.revenue,
-           p.category,                                                     -- Issue 8: lookup
+           coalesce(btrim(r.category), btrim(f.category)) AS category,     -- Issue 2: original category
+           p.category IS NOT DISTINCT FROM coalesce(btrim(r.category), btrim(f.category))
+               AS category_matches_product,
            q.quantity_basis,                                               -- Issue 1
            f.quantity * q.mult AS units_sold,
            f.quantity = max(f.quantity) OVER () AS qty_at_max,
@@ -157,13 +164,8 @@ BEGIN
     FROM staging.fact_sales f
     JOIN transformed.dim_product p ON p.product_key = f.product_key
     JOIN qrule q ON q.product_key = f.product_key
+    LEFT JOIN staging.raw_sales r ON r.sale_id = f.sale_id
     LEFT JOIN transformed.customer_dedup_map m ON m.loser_key = f.customer_key;
-
-    -- optional audit against the original CSV category (empty if raw_sales was not loaded)
-    CREATE TABLE transformed.category_audit AS
-    SELECT f.sale_id, btrim(r.category) AS category_original, f.category AS category_derived,
-           btrim(r.category) IS NOT DISTINCT FROM f.category AS matches
-    FROM transformed.fact_sales f LEFT JOIN staging.raw_sales r USING (sale_id);
 
     -- ---------------- quality gates ----------------
     IF (SELECT count(*) FROM transformed.fact_sales) <> (SELECT count(*) FROM staging.fact_sales) THEN
@@ -185,10 +187,22 @@ BEGIN
                GROUP BY email, lower(customer_name) HAVING count(*) > 1) THEN
         RAISE EXCEPTION 'duplicate customers (same email + name) remain';
     END IF;
-    IF EXISTS (SELECT 1 FROM transformed.fact_sales f JOIN transformed.dim_product p USING (product_key)
-               WHERE f.category IS DISTINCT FROM p.category) THEN
-        RAISE EXCEPTION 'fact_sales.category differs from dim_product.category';
+    SELECT count(*) INTO category_count FROM (SELECT DISTINCT category FROM transformed.fact_sales) categories;
+    SELECT count(*) <> 4 OR bool_or(abs(pct - expected_pct) > 0.5) INTO bad_distribution
+    FROM (
+        SELECT 100.0 * count(*) / sum(count(*)) OVER () AS pct,
+               row_number() OVER (ORDER BY count(*) DESC) AS rn
+        FROM transformed.fact_sales GROUP BY category
+    ) actual
+    JOIN (VALUES (1, 42.0), (2, 26.0), (3, 20.0), (4, 12.0)) expected(rn, expected_pct)
+        USING (rn);
+    IF category_count <> 4 OR coalesce(bad_distribution, true) THEN
+        RAISE EXCEPTION 'category distribution differs from expected 42/26/20/12 percent';
     END IF;
+
+    SELECT round(100.0 * count(*) FILTER (WHERE category_matches_product) / count(*), 1)
+      INTO cat_match_pct FROM transformed.fact_sales;
+    RAISE NOTICE 'Issue 8: sale category equals product category on % percent of rows', cat_match_pct;
 
     SELECT round(100.0 * count(*) FILTER (WHERE revenue_mismatch) / count(*), 2)
       INTO mismatch_rate FROM transformed.fact_sales;

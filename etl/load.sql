@@ -30,7 +30,7 @@ BEGIN
         = extract(month FROM full_date)::int);
 
     CREATE TABLE clean.dim_product AS TABLE transformed.dim_product;
-    ALTER TABLE clean.dim_product ALTER COLUMN category SET NOT NULL;
+    ALTER TABLE clean.dim_product ALTER COLUMN product_group SET NOT NULL;
     ALTER TABLE clean.dim_product ADD PRIMARY KEY (product_key);
     ALTER TABLE clean.dim_product ADD CONSTRAINT chk_margin CHECK (list_price >= unit_cost);  -- Issue 5
 
@@ -47,18 +47,16 @@ BEGIN
     CREATE TABLE clean.customer_dedup_map AS TABLE transformed.customer_dedup_map;
     CREATE TABLE clean.customer_review AS TABLE transformed.customer_review;
     CREATE TABLE clean.customer_duplicate_pairs AS TABLE transformed.customer_duplicate_pairs;
-    CREATE TABLE clean.category_audit AS TABLE transformed.category_audit;
 
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (date_key) REFERENCES clean.dim_date(date_key);
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (product_key) REFERENCES clean.dim_product(product_key);
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (customer_key) REFERENCES clean.dim_customer(customer_key);
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (store_key) REFERENCES clean.dim_store(store_key);
 
-    -- Issue 8: single source of truth for category = dim_product (no stored copy in the fact table)
-    ALTER TABLE clean.fact_sales DROP COLUMN category;
+    -- Issue 8 (Option A): fact keeps the original sale category; product categories exposed beside it
     EXECUTE $v$
         CREATE VIEW clean.v_fact_sales AS
-        SELECT f.*, p.category, f.revenue_expected AS net_revenue
+        SELECT f.*, p.category AS product_category, p.product_group, f.revenue_expected AS net_revenue
         FROM clean.fact_sales f JOIN clean.dim_product p USING (product_key)
     $v$;
 

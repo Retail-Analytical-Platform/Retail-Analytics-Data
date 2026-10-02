@@ -2,7 +2,7 @@
 -- Requires public.dim_product to be loaded (used only to seed the lookup tables).
 CREATE SCHEMA IF NOT EXISTS etl;
 
--- Issue 2 (step 3): product category as independent reference data, keyed by product name.
+-- Issue 2 (step 3): name-based product classification (becomes dim_product.product_group).
 CREATE TABLE IF NOT EXISTS etl.product_category_map (
     product_name text PRIMARY KEY,
     category     text NOT NULL
@@ -68,5 +68,7 @@ WHERE NOT EXISTS (SELECT 1 FROM etl.pricing_rules);
 INSERT INTO etl.decision_log (issue_no, decision, rationale) VALUES
  (4, 'accept', 'discount_pct is a constant 0.35 on every row; no variation to clean. Documented as a flat-rate assumption.'),
  (5, 'fix',    '78% of source products had unit_cost > list_price (systemic generator defect, not clearance). Prices now come from etl.pricing_rules.'),
+ (2, 'accept', 'fact_sales keeps its original 4 categories (Electronics/Home/Apparel/Grocery, 42/26/20/12). dim_product.category keeps the original labels; product_group holds the name-based classification (Electronics/Home).'),
+ (8, 'reject', 'fact_sales.category is NOT derived from dim_product: that would remove Apparel/Grocery. category_matches_product flags the disagreement instead.'),
  (7, 'accept', 'Official revenue = round(quantity * unit_price * (1 - discount_pct), 2). Source revenue column is kept for audit only.')
 ON CONFLICT (issue_no) DO NOTHING;
