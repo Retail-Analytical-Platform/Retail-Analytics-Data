@@ -1,5 +1,4 @@
 # The Pricing Fix — How `dim_product` Prices Were Rebuilt
-
 **Scope of this document:** what was broken about pricing in the star schema,
 what was done to fix it, and what is still imperfect. All work lives in
 `etl/main_pipeline.ipynb` (cells 8–70) plus the eBay price scraper
@@ -208,7 +207,7 @@ WHERE fs.product_key = dp.product_key;
 
 ## 5. One-Paragraph Summary
 
-The pricing problem was not a formula bug — it was missing information. 400
+The pricing problem was not a formula bug, it was missing information. 400
 product rows described 42 products with invented brands and random prices, so
 no market price could be attached to them. The fix was to rebuild identity
 first (unique brand per row), then pull **real brand-level median prices from
