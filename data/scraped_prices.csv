@@ -1,0 +1,401 @@
+product_name,status,n_listings,n_used,price,source_url
+Xiaomi Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Ergonomic Gaming Mouse,ok,50,43,34.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Aromatherapy Diffuser,no_data,3,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Aromatherapy+Diffuser&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Electric Toothbrush Smart,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Portable Charger 20000mAh,no_data,7,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Ergonomic Gaming Mouse,ok,50,16,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Dash Cam Front & Rear,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG WiFi 6 Router,ok,20,8,38.75,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Webcam 1080p,ok,50,41,82.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Portable SSD 1TB,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Wireless Earbuds Pro,ok,50,21,158.78,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Wireless Earbuds Pro,ok,50,38,58.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Air Purifier HEPA,ok,50,39,59.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Air+Purifier+HEPA&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Ergonomic Gaming Mouse,ok,50,48,65.19,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Portable Charger 20000mAh,ok,50,19,26.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Ergonomic Gaming Mouse,ok,7,3,12.43,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Xiaomi 27"" Monitor 144Hz",ok,6,4,186.44,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Cordless Vacuum,ok,50,14,87.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Cordless+Vacuum&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Wireless Noise-Cancelling Headphones,ok,50,21,22.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Memory Foam Pillow,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Wireless Earbuds Pro,ok,50,47,90.39,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Smart Home Hub,no_data,50,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Smart+Home+Hub&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Mechanical Keyboard,ok,50,45,54.9,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Portable Charger 20000mAh,ok,50,18,26.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Electric Toothbrush Smart,ok,50,49,49.39,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Logitech 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"LG Tablet 10.5"" WiFi",ok,50,22,75.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Action Camera 4K,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Bamboo Cutting Board Set,ok,50,45,34.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Wireless Earbuds Pro,ok,50,7,22.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Robot Vacuum Pro,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Ikea Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Ikea+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Smart LED Desk Lamp,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Logitech Tablet 10.5"" WiFi",no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Robot Vacuum Pro,ok,6,6,490.54,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Dell 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+TCL Wireless Earbuds Pro,no_data,50,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=TCL+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Smart Home Hub,ok,50,37,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Smart+Home+Hub&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Philips Tablet 10.5"" WiFi",no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+TCL Robot Vacuum Pro,no_data,2,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=TCL+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Webcam 1080p,ok,50,40,47.62,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips E-Reader Paperwhite,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Wireless Earbuds Pro,ok,50,3,17.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Wireless Earbuds Pro,no_data,6,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL WiFi 6 Router,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell E-Reader Paperwhite,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Smartwatch Series 5,no_data,8,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech E-Reader Paperwhite,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Wireless Noise-Cancelling Headphones,ok,50,41,149.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Shower Curtain Liner,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Shower+Curtain+Liner&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Digital Kitchen Scale,ok,50,47,33.17,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Bamboo Cutting Board Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Mechanical Keyboard,ok,22,7,34.08,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Dash Cam Front & Rear,ok,50,39,114.69,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips French Press Coffee Maker,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker USB-C Laptop Stand,ok,10,5,219.1,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Smartwatch Series 5,ok,50,8,23.7,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Under-Cabinet LED Lights,ok,17,4,58.48,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Silicone Baking Mat Set,ok,50,27,25.29,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Dash Cam Front & Rear,ok,50,47,140.49,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Smart LED Desk Lamp,ok,18,18,82.14,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"LG 4K OLED Smart TV 55""",ok,50,50,1042.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Portable Charger 20000mAh,ok,50,15,31.98,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Robot Vacuum Pro,ok,23,8,737.04,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Memory Foam Pillow,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple USB-C Laptop Stand,ok,50,30,50.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Webcam 1080p,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Dell Tablet 10.5"" WiFi",ok,8,4,128.15,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung USB-C Laptop Stand,ok,50,20,34.54,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Digital Kitchen Scale,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"JBL 27"" Monitor 144Hz",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Toshiba 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+TCL Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=TCL+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Hisense Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Bose Tablet 10.5"" WiFi",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony French Press Coffee Maker,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"LG 27"" Monitor 144Hz",ok,50,45,153.98,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Bamboo Cutting Board Set,ok,33,29,15.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Wireless Earbuds Pro,ok,50,3,31.39,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Dish Rack Stainless Steel,no_data,26,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Dish+Rack+Stainless+Steel&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Apple Cast Iron Skillet 12""",ok,7,5,30.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Cast+Iron+Skillet+12%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Mechanical Keyboard,ok,12,9,29.69,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Webcam 1080p,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Samsung 27"" Monitor 144Hz",ok,50,48,184.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Wireless Earbuds Pro,ok,50,47,35.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Electric Toothbrush Smart,ok,50,38,57.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi French Press Coffee Maker,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Ceramic Dinnerware Set 12-Piece,ok,50,37,53.79,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Ceramic+Dinnerware+Set+12-Piece&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Portable Charger 20000mAh,ok,50,31,64.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Portable Charger 20000mAh,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Dash Cam Front & Rear,ok,4,3,32.97,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Belkin Wireless Earbuds Pro,ok,21,12,39.98,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Belkin+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Smart Plug 4-Pack,no_data,4,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Smart Home Hub,ok,28,6,14.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Smart+Home+Hub&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Smart Home Hub,ok,50,38,42.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Smart+Home+Hub&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Whirlpool Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Whirlpool+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Under-Cabinet LED Lights,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Wireless Earbuds Pro,ok,12,5,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Logitech 27"" Monitor 144Hz",no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Steam Mop,ok,25,23,27.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Steam+Mop&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Siemens Wireless Earbuds Pro,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Siemens+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung E-Reader Paperwhite,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Aromatherapy Diffuser,ok,50,10,40.2,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Aromatherapy+Diffuser&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Webcam 1080p,ok,36,28,17.52,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Toshiba Wireless Earbuds Pro,ok,36,27,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Portable Charger 20000mAh,ok,50,15,39.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Stainless Steel Knife Set,ok,50,37,38.64,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Stainless+Steel+Knife+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Wireless Earbuds Pro,ok,50,30,68.58,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech WiFi 6 Router,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Webcam 1080p,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Portable Bluetooth Speaker,ok,50,45,39.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Portable+Bluetooth+Speaker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Webcam 1080p,ok,50,42,25.97,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Action Camera 4K,ok,50,19,99.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG French Press Coffee Maker,ok,43,22,29.39,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Action Camera 4K,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Webcam 1080p,ok,22,9,159.75,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Steam Mop,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Steam+Mop&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dyson Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dyson+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Toshiba Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"JBL 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Instant Pot 6Qt,ok,50,18,68.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Instant+Pot+6Qt&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Smartwatch Series 5,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Siemens Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Siemens+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Dash Cam Front & Rear,ok,8,6,36.44,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Huawei 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dyson Ergonomic Gaming Mouse,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dyson+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Shower Curtain Liner,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Shower+Curtain+Liner&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Electric Toothbrush Smart,no_data,47,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Cordless Vacuum,ok,50,44,93.29,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Cordless+Vacuum&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Dash Cam Front & Rear,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony USB-C Laptop Stand,no_data,6,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Digital Kitchen Scale,ok,11,4,15.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Wireless Earbuds Pro,ok,10,4,76.37,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Smartwatch Series 5,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG E-Reader Paperwhite,no_data,4,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Cuisinart Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Cuisinart+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Portable Bluetooth Speaker,ok,50,44,35.47,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Portable+Bluetooth+Speaker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung WiFi 6 Router,ok,14,7,129.7,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Ergonomic Gaming Mouse,ok,45,20,28.73,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Dash Cam Front & Rear,no_data,3,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Action Camera 4K,ok,50,45,16.43,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Pour-Over Coffee Set,ok,9,7,86.65,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Sony Tablet 10.5"" WiFi",no_data,5,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung French Press Coffee Maker,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Portable SSD 1TB,ok,50,38,149.69,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Ceramic Dinnerware Set 12-Piece,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Ceramic+Dinnerware+Set+12-Piece&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Dash Cam Front & Rear,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Dash Cam Front & Rear,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Bamboo Cutting Board Set,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Smart Plug 4-Pack,ok,12,7,11.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Cotton Percale Sheet Set Queen,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Action Camera 4K,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Smart Home Hub,ok,50,42,49.97,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Smart+Home+Hub&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Whirlpool Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Whirlpool+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips USB-C Laptop Stand,ok,3,3,24.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Webcam 1080p,ok,50,33,131.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Smart LED Desk Lamp,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Portable Charger 20000mAh,ok,50,19,26.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Whirlpool Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Whirlpool+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL USB-C Laptop Stand,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Dash Cam Front & Rear,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Under-Cabinet LED Lights,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Portable Bluetooth Speaker,ok,50,48,69.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Portable+Bluetooth+Speaker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Steam Mop,ok,42,20,135.43,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Steam+Mop&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Baseus Wireless Earbuds Pro,ok,50,43,57.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Baseus+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Cordless Vacuum,ok,50,42,66.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Cordless+Vacuum&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Webcam 1080p,ok,50,49,27.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Hisense Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Under-Cabinet LED Lights,ok,37,20,99.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Toshiba Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Portable SSD 1TB,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Webcam 1080p,ok,13,4,46.86,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Dash Cam Front & Rear,ok,50,47,95.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Portable Charger 20000mAh,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple E-Reader Paperwhite,ok,50,38,38.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Portable Charger 20000mAh,error: <urlopen error _ssl.c:1064: The handshake operation timed out>,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+OXO Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=OXO+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Panasonic 4K OLED Smart TV 55""",ok,11,10,13.23,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Smartwatch Series 5,ok,50,42,60.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Portable SSD 1TB,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Samsung Tablet 10.5"" WiFi",ok,50,46,103.97,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Dash Cam Front & Rear,ok,15,12,159.04,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Portable SSD 1TB,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi E-Reader Paperwhite,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Wireless Earbuds Pro,ok,50,40,70.31,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Air Purifier HEPA,ok,50,39,70.19,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Air+Purifier+HEPA&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Non-Stick Cookware Set 10-Piece,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Non-Stick+Cookware+Set+10-Piece&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Dish Rack Stainless Steel,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Dish+Rack+Stainless+Steel&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Samsung 4K OLED Smart TV 55""",ok,50,45,1072.8,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Smart Plug 4-Pack,ok,50,46,29.49,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Webcam 1080p,ok,26,19,65.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Siemens Robot Vacuum Pro,no_data,3,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Siemens+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Memory Foam Pillow,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose French Press Coffee Maker,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony E-Reader Paperwhite,ok,6,3,11.93,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Hisense 4K OLED Smart TV 55""",ok,15,13,363.89,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Sony 4K OLED Smart TV 55""",ok,50,50,1290.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Sharp 4K OLED Smart TV 55""",no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Glass Food Storage Containers,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Glass+Food+Storage+Containers&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Robot Vacuum Pro,ok,5,5,900.18,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Smartwatch Series 5,ok,50,5,79.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Smart Plug 4-Pack,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Electric Toothbrush Smart,no_data,8,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dyson Robot Vacuum Pro,ok,27,11,20.69,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dyson+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Stainless Steel Knife Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Stainless+Steel+Knife+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Silicone Baking Mat Set,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Glass Food Storage Containers,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Glass+Food+Storage+Containers&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker E-Reader Paperwhite,no_data,20,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Electric Toothbrush Smart,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Electric+Toothbrush+Smart&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Philips 27"" Monitor 144Hz",ok,35,30,207.36,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Smart LED Desk Lamp,no_data,4,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Robot Vacuum Pro,no_data,3,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Lenovo 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Portable SSD 1TB,ok,34,10,280.69,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Instant Pot 6Qt,ok,50,17,79.55,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Instant+Pot+6Qt&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Toshiba Ergonomic Gaming Mouse,ok,6,3,26.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Under-Cabinet LED Lights,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Robot Vacuum Pro,ok,29,21,69.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Portable Bluetooth Speaker,ok,50,35,35.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Portable+Bluetooth+Speaker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Dish Rack Stainless Steel,no_data,4,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Dish+Rack+Stainless+Steel&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Ergonomic Gaming Mouse,ok,50,34,32.43,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Toshiba Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Toshiba+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Cordless Vacuum,ok,50,20,29.2,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Cordless+Vacuum&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Smartwatch Series 5,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Samsung Cast Iron Skillet 12""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Cast+Iron+Skillet+12%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS WiFi 6 Router,ok,50,40,79.93,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Memory Foam Pillow,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Mechanical Keyboard,ok,50,36,37.22,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Webcam 1080p,ok,50,16,20.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"LG Cast Iron Skillet 12""",ok,50,47,103.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Cast+Iron+Skillet+12%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Philips 4K OLED Smart TV 55""",ok,16,9,27.62,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Whirlpool Robot Vacuum Pro,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Whirlpool+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Portable SSD 1TB,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Portable SSD 1TB,no_data,4,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Portable Charger 20000mAh,ok,50,26,23.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Smart LED Desk Lamp,ok,7,3,77.82,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi WiFi 6 Router,ok,42,24,56.34,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL E-Reader Paperwhite,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Memory Foam Pillow,no_data,4,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Apple 27"" Monitor 144Hz",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips WiFi 6 Router,no_data,9,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Robot Vacuum Pro,ok,50,45,26.8,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Dash Cam Front & Rear,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Electrolux Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Electrolux+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple WiFi 6 Router,ok,50,24,33.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Glass Food Storage Containers,ok,50,49,59.84,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Glass+Food+Storage+Containers&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bosch Robot Vacuum Pro,ok,28,10,21.51,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bosch+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Ergonomic Gaming Mouse,ok,42,7,33.17,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Hisense Wireless Earbuds Pro,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sharp Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sharp+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Glass Food Storage Containers,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Glass+Food+Storage+Containers&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Portable Charger 20000mAh,ok,40,9,31.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Apple Tablet 10.5"" WiFi",ok,50,43,122.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Portable Charger 20000mAh,no_data,4,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Bamboo Cutting Board Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Smartwatch Series 5,no_data,41,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Smartwatch+Series+5&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Hisense Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dyson Wireless Earbuds Pro,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dyson+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Wireless Noise-Cancelling Headphones,ok,50,41,45.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Smart Plug 4-Pack,ok,50,49,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Instant Pot 6Qt,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Instant+Pot+6Qt&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Dish Rack Stainless Steel,ok,50,42,29.88,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Dish+Rack+Stainless+Steel&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Anker 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Ergonomic Gaming Mouse,ok,28,19,15.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Portable Charger 20000mAh,ok,50,22,26.49,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Robot Vacuum Pro,ok,24,13,79.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+TP-Link Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=TP-Link+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+ASUS Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Bamboo Cutting Board Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Bamboo+Cutting+Board+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Digital Kitchen Scale,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Silicone Baking Mat Set,no_data,3,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Portable SSD 1TB,ok,50,44,194.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Xiaomi 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony WiFi 6 Router,no_data,3,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Siemens Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Siemens+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Under-Cabinet LED Lights,ok,27,10,16.47,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Portable Charger 20000mAh,ok,50,41,32.89,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Mechanical Keyboard,ok,27,11,77.54,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Under-Cabinet LED Lights,ok,23,8,32.41,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Smart LED Desk Lamp,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Dash Cam Front & Rear,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Memory Foam Pillow,ok,50,40,26.58,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"ASUS 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Dell 27"" Monitor 144Hz",ok,50,48,161.49,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Bose 4K OLED Smart TV 55""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Anker Tablet 10.5"" WiFi",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Shower Curtain Liner,ok,18,3,20.23,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Shower+Curtain+Liner&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Robot Vacuum Pro,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Action Camera 4K,ok,50,42,163.31,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Smart LED Desk Lamp,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose E-Reader Paperwhite,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+E-Reader+Paperwhite&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Portable Charger 20000mAh,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Portable+Charger+20000mAh&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Wireless Noise-Cancelling Headphones,ok,50,35,54.95,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Ergonomic Gaming Mouse,no_data,50,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose Robot Vacuum Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Mechanical Keyboard,ok,50,27,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Mechanical+Keyboard&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bosch Smart Plug 4-Pack,ok,4,4,43.13,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bosch+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Smart LED Desk Lamp,ok,13,11,112.89,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Robot Vacuum Pro,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Sony 27"" Monitor 144Hz",ok,49,35,425.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Cotton Percale Sheet Set Queen,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Wireless Earbuds Pro,ok,50,37,56.95,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Apple 4K OLED Smart TV 55""",no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+4K+OLED+Smart+TV+55%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Dash Cam Front & Rear,no_data,2,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Dash+Cam+Front+%26+Rear&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Cotton Percale Sheet Set Queen,ok,50,46,65.75,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Smart Plug 4-Pack,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Memory Foam Pillow,no_data,2,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Electrolux Robot Vacuum Pro,ok,33,11,22.32,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Electrolux+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose WiFi 6 Router,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Memory Foam Pillow,no_data,19,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Cotton Percale Sheet Set Queen,ok,47,45,70.42,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Cotton+Percale+Sheet+Set+Queen&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Ceramic Dinnerware Set 12-Piece,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Ceramic+Dinnerware+Set+12-Piece&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Philips Cast Iron Skillet 12""",no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Cast+Iron+Skillet+12%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bose USB-C Laptop Stand,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Aromatherapy Diffuser,ok,8,5,10.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Aromatherapy+Diffuser&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bosch Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bosch+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Electrolux Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Electrolux+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Wireless Noise-Cancelling Headphones,ok,50,30,72.61,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Action Camera 4K,ok,45,38,72.5,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Action+Camera+4K&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"ASUS 27"" Monitor 144Hz",ok,50,47,170.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=ASUS+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Logitech Portable SSD 1TB,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Logitech+Portable+SSD+1TB&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell Ergonomic Gaming Mouse,ok,50,18,36.09,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Wireless Noise-Cancelling Headphones,ok,50,49,139.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Wireless+Noise-Cancelling+Headphones&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Webcam 1080p,ok,50,27,29.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Webcam+1080p&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Shower Curtain Liner,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Shower+Curtain+Liner&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Xiaomi Tablet 10.5"" WiFi",ok,50,7,139.3,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Huawei Smart Plug 4-Pack,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Huawei+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Panasonic Smart Plug 4-Pack,no_data,3,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Panasonic+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+TCL Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=TCL+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Smart Plug 4-Pack,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Robot Vacuum Pro,no_data,17,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Smart Plug 4-Pack,no_data,3,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Bosch Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bosch+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Aromatherapy Diffuser,ok,50,17,15.96,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Aromatherapy+Diffuser&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Memory Foam Pillow,ok,42,31,29.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Memory+Foam+Pillow&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Stainless Steel Knife Set,no_data,3,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Stainless+Steel+Knife+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple French Press Coffee Maker,no_data,5,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+French+Press+Coffee+Maker&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Smart Plug 4-Pack,ok,50,39,29.95,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Samsung Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Samsung+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Wireless Earbuds Pro,ok,50,45,100.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Pour-Over Coffee Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Pour-Over+Coffee+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Wireless Earbuds Pro,ok,50,42,73.85,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Cordless Vacuum,ok,50,37,27.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Cordless+Vacuum&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG Smart Plug 4-Pack,no_data,2,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+Smart+Plug+4-Pack&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Air Purifier HEPA,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Air+Purifier+HEPA&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Digital Kitchen Scale,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Tefal Wireless Earbuds Pro,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Tefal+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+JBL Silicone Baking Mat Set,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Silicone+Baking+Mat+Set&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Philips Aromatherapy Diffuser,no_data,24,2,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Philips+Aromatherapy+Diffuser&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Dell WiFi 6 Router,no_data,10,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Dell+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Anker 27"" Monitor 144Hz",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Sony Under-Cabinet LED Lights,no_data,1,1,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Under-Cabinet+LED+Lights&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Bose 27"" Monitor 144Hz",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Bose+27%22+Monitor+144Hz&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"Sony Cast Iron Skillet 12""",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Sony+Cast+Iron+Skillet+12%22&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker WiFi 6 Router,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+WiFi+6+Router&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Hisense Ergonomic Gaming Mouse,no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Hisense+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi USB-C Laptop Stand,ok,19,17,25.77,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+LG USB-C Laptop Stand,ok,15,3,60.0,https://api.ebay.com/buy/browse/v1/item_summary/search?q=LG+USB-C+Laptop+Stand&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Xiaomi Digital Kitchen Scale,ok,7,4,32.77,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Xiaomi+Digital+Kitchen+Scale&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Lenovo Wireless Earbuds Pro,ok,50,45,24.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Lenovo+Wireless+Earbuds+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+"JBL Tablet 10.5"" WiFi",no_data,0,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=JBL+Tablet+10.5%22+WiFi&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Tefal Robot Vacuum Pro,no_data,1,0,,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Tefal+Robot+Vacuum+Pro&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Anker Ergonomic Gaming Mouse,ok,50,47,16.01,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Anker+Ergonomic+Gaming+Mouse&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
+Apple Smart LED Desk Lamp,ok,14,11,71.99,https://api.ebay.com/buy/browse/v1/item_summary/search?q=Apple+Smart+LED+Desk+Lamp&limit=50&filter=priceCurrency%3AUSD%2Cprice%3A%5B5..5000%5D
