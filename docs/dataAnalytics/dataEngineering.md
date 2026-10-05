@@ -399,5 +399,5 @@ margins 17 / 23 / 29 / 31.5 / 38.5 / 46 % — one per category × subcategory ba
 6. `extract.py` and the notebook do the same job two different ways; pick one as
    canonical.
 7. eBay prices are a single marketplace (US), new-condition only, median of
-   live listings — no shipping, no regional variance. `brand_data.low/high`
+   live listings, no shipping, no regional variance. `brand_data.low/high`
    should be used as sanity bands in any downstream margin report.
