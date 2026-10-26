@@ -72,3 +72,30 @@ INSERT INTO etl.decision_log (issue_no, decision, rationale) VALUES
  (8, 'reject', 'fact_sales.category is NOT derived from dim_product: that would remove Apparel/Grocery. category_matches_product flags the disagreement instead.'),
  (7, 'accept', 'Official revenue = round(quantity * unit_price * (1 - discount_pct), 2). Source revenue column is kept for audit only.')
 ON CONFLICT (issue_no) DO NOTHING;
+-- Migrated from main_pipeline.ipynb
+CREATE TABLE IF NOT EXISTS public.brand_data (
+    base_name text,
+    brand text,
+    ebay_matches integer,
+    n_used integer,
+    price numeric(12,2),
+    low numeric(12,2),
+    high numeric(12,2)
+);
+
+CREATE TABLE IF NOT EXISTS public.ref_cost_benchmark (
+    category VARCHAR(50),
+    subcategory VARCHAR(50),
+    ratio_low DECIMAL(5,4),
+    ratio_high DECIMAL(5,4),
+    PRIMARY KEY (category, subcategory)
+);
+
+INSERT INTO public.ref_cost_benchmark (category, subcategory, ratio_low, ratio_high) VALUES
+    ('Electronics', 'Premium', 0.68, 0.74),
+    ('Electronics', 'Standard', 0.74, 0.80),
+    ('Electronics', 'Budget', 0.80, 0.86),
+    ('Home', 'Premium', 0.50, 0.58),
+    ('Home', 'Standard', 0.58, 0.65),
+    ('Home', 'Budget', 0.65, 0.72)
+ON CONFLICT (category, subcategory) DO NOTHING;
