@@ -1,18 +1,11 @@
--- Full ETL pipeline orchestrator (replaces previous version)
--- Runs rules, extract, transform, load and applies notebook migrations
+<<<<<<< Updated upstream
+-- Install this after extract/extract.sql, transform/transform.sql, and load/load.sql.
+-- raw_sales must already be loaded into staging.raw_sales.
+=======
+-- Full ETL pipeline orchestrator.
+-- Extraction and raw_sales loading are performed by etl/run_etl.sh.
+>>>>>>> Stashed changes
 CREATE SCHEMA IF NOT EXISTS etl;
-
-\set ON_ERROR_STOP on
-\set script_dir `pwd`/etl
-
-\i :script_dir/rules.sql
-\i :script_dir/extract.sql
-\i :script_dir/transform.sql
-\i :script_dir/load.sql
-
--- Apply notebook/main_pipeline migrations
-SELECT etl.transform_notebook();
-SELECT etl.load_notebook();
 
 CREATE OR REPLACE FUNCTION etl.run_pipeline()
 RETURNS void
@@ -21,7 +14,13 @@ AS $$
 BEGIN
     PERFORM etl.transform();
     PERFORM etl.load();
-    PERFORM etl.transform_notebook();
-    PERFORM etl.load_notebook();
+<<<<<<< Updated upstream
+=======
+    PERFORM etl.apply_notebook_transform();
+    PERFORM etl.apply_notebook_load();
+>>>>>>> Stashed changes
 END;
 $$;
+
+-- Notebook call: SELECT etl.run_pipeline();
+

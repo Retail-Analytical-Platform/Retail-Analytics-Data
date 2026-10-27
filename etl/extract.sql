@@ -41,33 +41,12 @@ BEGIN
 END;
 $$;
 
+<<<<<<< Updated upstream
 -- Notebook call: SELECT etl.extract();
 -- CSV import is client-side and cannot run inside PostgreSQL:
 -- psql "$DATABASE_URL" -c "SELECT etl.extract();" \
 --   -c "\\copy staging.raw_sales (sale_id, category) FROM '/absolute/path/raw_sales.csv' CSV HEADER" \
 --   -c "SELECT etl.validate_raw_sales();"
--- Notebook migration support
-CREATE OR REPLACE FUNCTION etl.load_brand_data(csv_path text DEFAULT NULL)
-RETURNS void
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    CREATE TABLE IF NOT EXISTS public.brand_data (
-        base_name text,
-        brand text,
-        ebay_matches integer,
-        n_used integer,
-        price numeric(12,2),
-        low numeric(12,2),
-        high numeric(12,2)
-    );
-    IF csv_path IS NOT NULL THEN
-        EXECUTE format('TRUNCATE public.brand_data; COPY public.brand_data FROM %L WITH CSV HEADER', csv_path);
-    ELSE
-        BEGIN TRUNCATE public.brand_data; COPY public.brand_data FROM '../data/brand_prices.csv' WITH CSV HEADER; EXCEPTION WHEN OTHERS THEN
-            BEGIN TRUNCATE public.brand_data; COPY public.brand_data FROM './data/brand_prices.csv' WITH CSV HEADER; EXCEPTION WHEN OTHERS THEN
-                BEGIN TRUNCATE public.brand_data; COPY public.brand_data FROM (SELECT current_setting('etl.brand_data_path')) WITH CSV HEADER; EXCEPTION WHEN OTHERS THEN NULL; END; END; END;
-        END;
-    END IF;
-END;
-$$;
+=======
+-- CSV import is client-side and is performed by etl/run_etl.sh.
+>>>>>>> Stashed changes
