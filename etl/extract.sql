@@ -41,8 +41,12 @@ BEGIN
 END;
 $$;
 
+<<<<<<< Updated upstream
 -- Notebook call: SELECT etl.extract();
 -- CSV import is client-side and cannot run inside PostgreSQL:
 -- psql "$DATABASE_URL" -c "SELECT etl.extract();" \
 --   -c "\\copy staging.raw_sales (sale_id, category) FROM '/absolute/path/raw_sales.csv' CSV HEADER" \
 --   -c "SELECT etl.validate_raw_sales();"
+=======
+-- CSV import is client-side and is performed by etl/run_etl.sh.
+>>>>>>> Stashed changes

@@ -53,6 +53,23 @@ openssl rand -base64 24 | tr -d '/+=' | head -c 24 > secrets/postgres_password.t
 This file is gitignored (`secrets/*` in `.gitignore`) — it stays local and is
 never committed.
 
+The ETL service uses a separate database URL secret. Create
+`secrets/database_url.txt` with the Docker Compose service name `postgres`
+(not `localhost`, which would refer to the ETL container itself):
+
+```text
+postgresql://postgres:<the-password-from-postgres_password.txt>@postgres:5432/postgres
+```
+
+Create the file before running the ETL profile:
+
+```bash
+printf '%s\n' 'postgresql://postgres:<password>@postgres:5432/postgres' > secrets/database_url.txt
+```
+
+Replace `<password>` with the actual password for the existing PostgreSQL
+database.
+
 ### `compose.yaml` breakdown
 
 ```yaml

@@ -5,14 +5,14 @@ FROM postgres:16-alpine
 
 WORKDIR /app
 
-# Install just the pipeline. data/, secrets/, .env and the notebooks stay out
-# of the build context via .dockerignore; data/ is bind-mounted at run time.
-COPY etl/ ./etl/
-COPY docker/run-etl.sh ./run-etl.sh
+# Install the SQL files and the runner. data/, secrets/, .env and notebooks
+# stay out of the image; data/ is bind-mounted at run time.
+COPY etl/*.sql /app/etl/
+COPY etl/run_etl.sh /app/etl/run_etl.sh
 
 # Documented override (docs/dataAnalytics/dataEngineering.md): if a purpose-built
 # raw_sales.csv exists it is loaded with \copy; otherwise run-etl.sh derives the
 # sale_id/category pairs from staging.fact_sales. data/ is mounted, not baked in.
 ENV RAW_SALES_CSV=/app/data/raw/raw_sales.csv
 
-CMD ["sh", "run-etl.sh"]
+CMD ["sh", "/app/etl/run_etl.sh"]
