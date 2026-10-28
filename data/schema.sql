@@ -47,3 +47,9 @@ CREATE TABLE IF NOT EXISTS fact_sales (
     revenue       NUMERIC(12,2),
     category      TEXT
 );
+
+ALTER TABLE public.dim_date      ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dim_product   ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dim_customer  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dim_store     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.fact_sales    ENABLE ROW LEVEL SECURITY;
