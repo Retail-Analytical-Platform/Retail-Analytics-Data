@@ -119,7 +119,8 @@ def scrape_with_renaming(products_file=None):
             if p.exists():
                 products_file = str(p)
                 break
-    names = list(dict.fromkeys(l.strip() for l in open(products_file, encoding="utf-8-sig") if l.strip()))
+    with open(products_file, encoding="utf-8-sig") as f:
+        names = list(dict.fromkeys(l.strip() for l in f if l.strip()))
     if len(sys.argv) > 1 and sys.argv[1].isdigit(): names = names[:int(sys.argv[1])]
     brand_fn, base_fn = (lambda n: n.split(" ", 1)[0]), (lambda n: n.split(" ", 1)[1])
     token()
@@ -149,11 +150,12 @@ def scrape_by_brand_aspects(products_file=None):
                 products_file = str(p)
                 break
     bases = []
-    for line in open(products_file, encoding="utf-8-sig"):
-        name = line.strip()
-        first, _, rest = name.partition(" ")
-        name = rest if first in POOL and rest else name
-        if name and name not in bases: bases.append(name)
+    with open(products_file, encoding="utf-8-sig") as f:
+        for line in f:
+            name = line.strip()
+            first, _, rest = name.partition(" ")
+            name = rest if first in POOL and rest else name
+            if name and name not in bases: bases.append(name)
     if len(sys.argv) > 1 and sys.argv[1].isdigit(): bases = bases[:int(sys.argv[1])]
     print(len(bases), "products")
     token()
