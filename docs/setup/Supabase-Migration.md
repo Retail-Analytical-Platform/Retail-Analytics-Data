@@ -42,13 +42,13 @@ part of the connection process.
 
    The connection string looks like:
    ```
-   postgresql://postgres:[PASSWORD]@db.<project-ref>.supabase.co:5432/postgres
+   postgresql://postgres:@db.<project-ref>.supabase.co:5432/postgres
    ```
 
 ## 3. Test the connection
 
 ```bash
-psql "postgresql://postgres:[PASSWORD]@db.<project-ref>.supabase.co:5432/postgres"
+psql "postgresql://postgres:@db.<project-ref>.supabase.co:5432/postgres"
 ```
 
 If it connects successfully, the connection to Supabase is set up — no
@@ -65,9 +65,9 @@ directly from our own disk — no need for `docker cp` again, just point it at
 the Supabase connection string:
 
 ```bash
-psql "postgresql://postgres:[PASSWORD]@db.<ref>.supabase.co:5432/postgres" -f data/schema.sql
+psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" -f data/schema.sql
 
-psql "postgresql://postgres:[PASSWORD]@db.<ref>.supabase.co:5432/postgres" \
+psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" \
   -c "\copy dim_date FROM 'data/dim_date.csv' WITH (FORMAT csv, HEADER true)"
 # repeat for dim_product, dim_customer, dim_store, then fact_sales last
 ```
@@ -84,7 +84,7 @@ want to move:
 
 ```bash
 docker exec retailspg pg_dump -U postgres --no-owner --no-privileges postgres > dump.sql
-psql "postgresql://postgres:[PASSWORD]@db.<ref>.supabase.co:5432/postgres" -f dump.sql
+psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" -f dump.sql
 ```
 
 `--no-owner --no-privileges` matters — the `postgres` role in the container
@@ -99,7 +99,7 @@ Same count query as in
 just pointed at the Supabase connection string:
 
 ```bash
-psql "postgresql://postgres:[PASSWORD]@db.<ref>.supabase.co:5432/postgres" -c "
+psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" -c "
   SELECT 'dim_date', count(*) FROM dim_date
   UNION ALL SELECT 'dim_product', count(*) FROM dim_product
   UNION ALL SELECT 'dim_customer', count(*) FROM dim_customer

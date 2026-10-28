@@ -101,7 +101,7 @@ volumes:
 | `container_name: retailspg` | names the container `retailspg` (retail store postgres) — referenced throughout these docs |
 | `POSTGRES_PASSWORD_FILE` | tells the `postgres` image to read its password from a file instead of an env var, so the plaintext value never appears in `docker inspect` or `docker compose config` |
 | `secrets: postgres_password` | mounts the secret read-only at `/run/secrets/postgres_password` inside the container |
-| `-p 5432:5432` (`ports`) | maps `host:container` ports — 5432 is PostgreSQL's default port |
+| `-p 127.0.0.1:5432:5432` (`ports`) | maps `host:container` ports — 5432 is PostgreSQL's default port |
 | `retailspg-data:/var/lib/postgresql/data` (`volumes`) | local volume for storing data. `/var/lib/postgresql/data` is where PostgreSQL physically stores its tables, so if the container is removed, the data still lives in the `retailspg-data` volume and can be reused once a new container is created |
 | `restart: unless-stopped` | stays alive across reboots/crashes, similar in spirit to `docker run -d` |
 | `postgres:16` | the image used — PostgreSQL version 16 |
@@ -125,7 +125,7 @@ docker compose down            # stop (add -v to also remove the volume/data)
    | Field | Value |
    |---|---|
    | Host | `127.0.0.1` |
-   | Port | `5432` |
+   | Port | `5432:127.0.0.1` |
    | Username | `postgres` |
    | Password | the value in `secrets/postgres_password.txt` |
    | Database | `postgres` |

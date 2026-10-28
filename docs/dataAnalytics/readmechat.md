@@ -1,15 +1,4 @@
 # SQL Analysis Walkthrough — Retail Sales Star Schema
-
-This document explains the **correlations between data** (how the tables
-connect to each other) and **every SQL statement** run in `src/main.ipynb`,
-in sequence — each query is explained in relation to the query before and
-after it, closing with a conclusion.
-
-> The connection cell uses a plaintext database password
-> (`postgresql://postgres:ferlykntl123@localhost:5432/postgres`) and this file
-> is already in the git history. The password should be moved to an
-> environment variable and rotated.
-
 ---
 
 ## 1. Data Correlation — How All the Tables Relate
