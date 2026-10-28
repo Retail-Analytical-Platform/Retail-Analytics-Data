@@ -14,7 +14,7 @@ Report privately using GitHub's private vulnerability reporting:
 2. Click **Report a vulnerability**.
 3. Describe the issue, how to reproduce it, and its potential impact.
 
-If private reporting is unavailable, contact the maintainers at `<josephdeornay@gmail.com>`.
+If private reporting is unavailable, contact the maintainers at `josephdeornay@gmail.com`.
 
 Please include:
 - The affected file, table, endpoint or workflow
