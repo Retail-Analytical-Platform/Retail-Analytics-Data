@@ -58,6 +58,7 @@ def get_json(url, headers, timeout=30, tries=4):
             if attempt == tries - 1:
                 raise
         time.sleep(2 ** attempt)                 # 1s, 2s, 4s
+    raise ValueError("get_json needs tries >= 1")
 
 def record_failure(query, err):
     with _failed_lock:
