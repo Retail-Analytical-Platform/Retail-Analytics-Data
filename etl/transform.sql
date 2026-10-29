@@ -16,6 +16,8 @@ BEGIN
     -- raw_sales (CSV) = authoritative original category. If it is not loaded, staging.fact_sales.category is used.
     IF EXISTS (SELECT 1 FROM staging.raw_sales) THEN
         PERFORM etl.validate_raw_sales();
+    ELSE
+        RAISE NOTICE 'raw_sales empty: using staging.fact_sales.category';
     END IF;
 
     CREATE SCHEMA IF NOT EXISTS transformed;
