@@ -7,6 +7,7 @@ import base64, csv, json, os, re, statistics, sys, time
 from concurrent.futures import ThreadPoolExecutor
 import urllib.parse, urllib.request
 from pathlib import Path
+import threading, urllib.error
 
 # Determine directories dynamically
 SCRIPT_DIR = Path(__file__).parent.resolve()
@@ -41,34 +42,54 @@ GENERIC = {"unbranded", "generic", "does not apply", "unbranded/generic", "no br
 SKIP = re.compile(r"\b(case|cover|replacement|parts|broken|repair|manual|skin|strap|protector|sticker)\b", re.I)
 
 _tok = {}
-def token():
-    if _tok.get("exp", 0) < time.time():
-        auth = base64.b64encode(f"{os.environ['EBAY_CLIENT_ID']}:{os.environ['EBAY_CLIENT_SECRET']}".encode()).decode()
-        req = urllib.request.Request(HOST + "/identity/v1/oauth2/token",
-            data=urllib.parse.urlencode({"grant_type": "client_credentials", "scope": "https://api.ebay.com/oauth/api_scope"}).encode(),
-            headers={"Authorization": "Basic " + auth, "Content-Type": "application/x-www-form-urlencoded"})
-        d = json.load(urllib.request.urlopen(req, timeout=20))
-        _tok.update(v=d["access_token"], exp=time.time() + d["expires_in"] - 60)
-    return _tok["v"]
+_tok_lock = threading.Lock()
+_failed, _failed_lock = [], threading.Lock()
+RETRY = {429, 500, 502, 503, 504}
 
+def get_json(url, headers, timeout=30, tries=4):
+    for attempt in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            return json.load(urllib.request.urlopen(req, timeout=timeout))
+        except urllib.error.HTTPError as e:      # must come before URLError
+            if e.code not in RETRY or attempt == tries - 1:
+                raise
+        except (urllib.error.URLError, TimeoutError):
+            if attempt == tries - 1:
+                raise
+        time.sleep(2 ** attempt)                 # 1s, 2s, 4s
+
+def record_failure(query, err):
+    with _failed_lock:
+        _failed.append((query, str(err)))
+    print("FAILED:", query, err, flush=True)
+def token():
+    with _tok_lock:
+        if _tok.get("exp", 0) < time.time():
+            auth = base64.b64encode(f"{os.environ['EBAY_CLIENT_ID']}:{os.environ['EBAY_CLIENT_SECRET']}".encode()).decode()
+            req = urllib.request.Request(HOST + "/identity/v1/oauth2/token",
+                data=urllib.parse.urlencode({"grant_type": "client_credentials", "scope": "https://api.ebay.com/oauth/api_scope"}).encode(),
+                headers={"Authorization": "Basic " + auth, "Content-Type": "application/x-www-form-urlencoded"})
+            d = json.load(urllib.request.urlopen(req, timeout=20))
+            _tok.update(v=d["access_token"], exp=time.time() + d["expires_in"] - 60)
+        return _tok["v"]
 def get(params):
     url = HOST + "/buy/browse/v1/item_summary/search?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"Authorization": "Bearer " + token(), "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"})
     try:
-        data = json.load(urllib.request.urlopen(req, timeout=30))
+        data = get_json(url, {"Authorization": "Bearer " + token(), "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"})
     except Exception as e:
-        print("error:", params.get("q"), e, flush=True); return {}
+        record_failure(params.get("q"), e); return {}
     time.sleep(0.2)
     return data
 
 def fetch(query, limit=50):
     url = HOST + "/buy/browse/v1/item_summary/search?" + urllib.parse.urlencode(
         {"q": query, "limit": limit, "filter": "priceCurrency:USD,price:[5..5000]"})
-    req = urllib.request.Request(url, headers={"Authorization": "Bearer " + token(), "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"})
     try:
-        items = json.load(urllib.request.urlopen(req, timeout=20)).get("itemSummaries", [])
+        items = get_json(url, {"Authorization": "Bearer " + token(), "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"},
+                         timeout=20).get("itemSummaries", [])
     except Exception as e:
-        print("error:", query, e); return []
+        record_failure(query, e); return []
     time.sleep(0.2)
     print(f"{query[:50]:50s} {len(items)} listings", flush=True)
     return [(i["title"], float(i["price"]["value"])) for i in items if i.get("price", {}).get("currency") == "USD"]
@@ -173,6 +194,10 @@ def main():
     scrape_with_renaming()
     print("\nRunning scrape by brand aspects...")
     scrape_by_brand_aspects()
+    if _failed:
+        print(f"\n{len(_failed)} queries failed:")
+        for q, e in _failed: print(" -", q, "->", e)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
