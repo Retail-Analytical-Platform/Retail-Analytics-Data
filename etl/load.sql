@@ -53,14 +53,12 @@ BEGIN
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (customer_key) REFERENCES clean.dim_customer(customer_key);
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (store_key) REFERENCES clean.dim_store(store_key);
 
-    -- Issue 8 (Option A): fact keeps the original sale category; product categories exposed beside it
     EXECUTE $v$
         CREATE VIEW clean.v_fact_sales AS
         SELECT f.*, p.category AS product_category, p.product_group, f.revenue_expected AS net_revenue
         FROM clean.fact_sales f JOIN clean.dim_product p USING (product_key)
     $v$;
 
-    -- Issue 7: documented definitions
     COMMENT ON COLUMN clean.fact_sales.revenue IS
         'Source revenue, kept for audit only. Not reliable: see revenue_mismatch.';
     COMMENT ON COLUMN clean.fact_sales.revenue_expected IS
@@ -69,9 +67,6 @@ BEGIN
         'Quantity in single units: quantity * units_per_pack when quantity_basis = pack';
 END;
 $$;
-
--- Notebook call: SELECT etl.load();
--- === NOTEBOOK MIGRATIONS INTEGRATED ===
 CREATE TABLE IF NOT EXISTS public.brand_data (
     base_name text, brand text, ebay_matches integer, n_used integer, price numeric(12,2), low numeric(12,2), high numeric(12,2)
 );
@@ -149,7 +144,6 @@ UPDATE public.fact_sales AS fs
 SET retail_price = dp.retail_price,
     revenue = ROUND((dp.retail_price * (1 - COALESCE(fs.discount_pct, 0)) * fs.quantity)::numeric, 2)
 FROM public.dim_product AS dp WHERE fs.product_key = dp.product_key;
--- === END NOTEBOOK MIGRATIONS ===
 
 -- Consolidated notebook load transformations
 CREATE OR REPLACE FUNCTION etl.load_notebook()
