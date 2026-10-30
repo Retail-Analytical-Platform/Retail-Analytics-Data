@@ -79,8 +79,9 @@ matplotlib-inline, ipykernel, numpy.
 `dim_date` 730, `dim_product` 400, `dim_customer` 2,000, `dim_store` 40,
 `fact_sales` 60,000 — 63,170 rows total. `data/INTEGRITY.txt` records the
 independent DuckDB verification: zero orphans on all four joins, zero duplicate
-dimension keys, category revenue share exactly 42/26/20/12 %, monthly revenue on
-a declared two-year curve. `schema.sql` + `schema.yaml` are the generator spec.
+dimension keys, category revenue share exactly 42/26/20/12 %, monthly revenue on a declared curve by `sold_at` (three months only: 2024-01,
+2024-12, 2025-12). The raw `dim_date` (730 rows, 464 distinct days) does not match
+`sold_at` on 59,278 rows; the pipeline rebuilds it (issue #62).
 
 ---
 
