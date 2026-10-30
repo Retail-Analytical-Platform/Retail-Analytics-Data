@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS etl.product_category_map (
     category     text NOT NULL
 );
 
+
 -- Issue 1: is fact_sales.quantity counted in packs or single units?
 CREATE TABLE IF NOT EXISTS etl.quantity_rules (
     rule_id        serial PRIMARY KEY,
@@ -70,7 +71,8 @@ INSERT INTO etl.decision_log (issue_no, decision, rationale) VALUES
  (5, 'fix',    '78% of source products had unit_cost > list_price (systemic generator defect, not clearance). Prices now come from etl.pricing_rules.'),
  (2, 'accept', 'fact_sales keeps its original 4 categories (Electronics/Home/Apparel/Grocery, 42/26/20/12). dim_product.category keeps the original labels; product_group holds the name-based classification (Electronics/Home).'),
  (8, 'reject', 'fact_sales.category is NOT derived from dim_product: that would remove Apparel/Grocery. category_matches_product flags the disagreement instead.'),
- (7, 'accept', 'Official revenue = round(quantity * unit_price * (1 - discount_pct), 2). Source revenue column is kept for audit only.')
+  (7, 'accept', 'Official revenue = round(quantity * unit_price * (1 - discount_pct), 2). Source revenue column is kept for audit only.'),
+ (10, 'accept', 'Canonical time axis is sold_at. The declared monthly revenue curve holds on sold_at; date_key maps to different months for 98.8% of rows.')
 ON CONFLICT (issue_no) DO NOTHING;
 -- Migrated from main_pipeline.ipynb
 CREATE TABLE IF NOT EXISTS public.brand_data (

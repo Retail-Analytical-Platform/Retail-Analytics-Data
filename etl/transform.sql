@@ -38,11 +38,13 @@ BEGIN
     RAISE NOTICE 'Issue 3: source month_name mismatches = %', src_month_bad;
 
     CREATE TABLE transformed.dim_date AS
-    SELECT date_key, full_date, trim(to_char(full_date, 'Day')) AS day_of_week,
-           trim(to_char(full_date, 'Month')) AS month_name,
-           'Q' || extract(quarter FROM full_date)::int::text AS quarter,
-           extract(isodow FROM full_date) IN (6, 7) AS is_weekend
-    FROM staging.dim_date;
+    SELECT to_char(g.d, 'YYYYMMDD')::int         AS date_key,
+           g.d::date                             AS full_date,
+           trim(to_char(g.d, 'Day'))             AS day_of_week,
+           trim(to_char(g.d, 'Month'))           AS month_name,
+           'Q' || extract(quarter FROM g.d)::int::text AS quarter,
+           extract(isodow FROM g.d) IN (6, 7)    AS is_weekend
+    FROM generate_series('2024-01-01'::timestamp, '2025-12-31'::timestamp, interval '1 day') AS g(d);
 
     IF EXISTS (
         SELECT 1 FROM transformed.dim_date
@@ -150,8 +152,7 @@ BEGIN
             ORDER BY length(q.name_pattern) DESC, q.rule_id LIMIT 1
         ) r ON true
     )
-    SELECT f.sale_id, f.date_key, f.product_key,
-           coalesce(m.survivor_key, f.customer_key) AS customer_key,
+    SELECT f.sale_id, to_char(f.sold_at, 'YYYYMMDD')::int AS date_key, f.product_key,           coalesce(m.survivor_key, f.customer_key) AS customer_key,
            f.store_key, f.sold_at, f.quantity, f.unit_price, f.discount_pct,
            f.revenue,
            coalesce(btrim(r.category), btrim(f.category)) AS category,     -- Issue 2: original category

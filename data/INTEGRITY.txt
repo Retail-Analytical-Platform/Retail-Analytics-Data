@@ -22,7 +22,7 @@ DECLARED CATEGORY SHARE OF REVENUE
   Apparel       20.00%   declared 20%
   Grocery       12.00%   declared 12%
 
-DECLARED MONTHLY REVENUE
+DECLARED MONTHLY REVENUE (by sold_at 3 months only)
   2024-01       820,000.00   declared 820,000
   2024-12     1,150,000.00   declared 1,150,000
   2025-12     1,480,000.00   declared 1,480,000
@@ -31,3 +31,4 @@ fact_sales rows: 60,000
 
 Nothing here is scraped or sampled. No real customer, product or
 transaction exists. The numbers are solved for, not measured.
+
