@@ -23,17 +23,23 @@ generator. Full output in `INTEGRITY.txt`.
 - **Zero duplicate keys** in any dimension.
 - **Category share of revenue lands exactly**: Electronics 42.00%, Home 26.00%,
   Apparel 20.00%, Grocery 12.00%.
-- **Monthly revenue lands exactly** on a declared two-year curve: 820,000 in
-  January 2024, 1,150,000 in December 2024, 1,480,000 in December 2025.
+-**Monthly revenue lands exactly** on a declared curve when grouped by `sold_at`:
+820,000 in January 2024, 1,150,000 in December 2024, 1,480,000 in December 2025.
+`sold_at` only covers these three months (93 distinct dates), so this is three data points, not a two-year curve.
 
-That last pair is the point. Your `GROUP BY` has an answer that is known to be
-right, so you can check your own SQL rather than eyeballing whether it looks
-plausible.
+> **Known issue in the raw files.** `fact_sales.date_key` does not match `sold_at`:
+> 59,278 of 60,000 rows (98.8%) join to a different day in `dim_date`, and
+> `dim_date` has 730 rows covering only 464 distinct days. Grouping by `dim_date`
+> therefore does not reproduce the curve above. The ETL pipeline rebuilds
+> `dim_date` as one row per calendar day (731 rows, 2024-01-01 to 2025-12-31,
+> key `YYYYMMDD`) and derives `date_key` from `sold_at` (`etl.decision_log`
+> row 10). About 40% of sales fall on two dates, 2024-01-31 and 2024-12-31, so
+> day-level trends are lumpy.
 
 ## Things to try
 
 - Revenue by category and region, joining the fact table to two dimensions.
-- Month-over-month growth, which should trace the declared curve.
+- Month-over-month growth by `sold_at` on the corrected `clean` layer. The data has only three months (2024-01, 2024-12, 2025-12), so growth is between months with no data in between.
 - A cohort chart from `dim_customer.segment` and `dim_date`.
 - Deliberately write the join wrong and watch the totals stop matching.
 
