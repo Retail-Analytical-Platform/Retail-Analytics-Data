@@ -16,6 +16,8 @@ BEGIN
     -- raw_sales (CSV) = authoritative original category. If it is not loaded, staging.fact_sales.category is used.
     IF EXISTS (SELECT 1 FROM staging.raw_sales) THEN
         PERFORM etl.validate_raw_sales();
+    ELSE
+        RAISE NOTICE 'raw_sales empty: using staging.fact_sales.category';
     END IF;
 
     CREATE SCHEMA IF NOT EXISTS transformed;
@@ -212,8 +214,6 @@ BEGIN
 END;
 $$;
 
--- Notebook call: SELECT etl.transform();
--- === MIGRATED FROM main_pipeline.ipynb ===
 CREATE TABLE IF NOT EXISTS public.brand_data (
     base_name text,
     brand text,
@@ -300,9 +300,7 @@ UPDATE public.fact_sales AS fs
 SET retail_price = dp.retail_price,
     revenue = ROUND((dp.retail_price * (1 - COALESCE(fs.discount_pct, 0)) * fs.quantity)::numeric, 2)
 FROM public.dim_product AS dp WHERE fs.product_key = dp.product_key;
--- === END NOTEBOOK MIGRATIONS ===
 
--- Consolidated notebook transformations
 CREATE OR REPLACE FUNCTION etl.transform_notebook()
 RETURNS void
 LANGUAGE plpgsql
