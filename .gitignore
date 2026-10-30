@@ -5,3 +5,4 @@ __pycache__/
 secrets/*
 .gitleaks.toml
 .pre-commit-config.yaml
+tests
