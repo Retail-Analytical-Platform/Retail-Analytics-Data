@@ -37,25 +37,8 @@ for file in rules extract transform load pipeline; do
     psql_db -f "/app/etl/$file.sql"
 done
 
-if [ "$(psql_db -Atqc 'SELECT count(*) FROM public.brand_data')" = '0' ]; then
-    log 'load public.brand_data'
-    psql_db -c "\\copy public.brand_data FROM '/app/data/brand_prices.csv' WITH (FORMAT csv, HEADER true)"
-    psql_db -c "UPDATE public.brand_data SET brand = 'Non Brand' WHERE brand IS NULL OR lower(trim(brand)) IN ('', 'n/a', 'na', 'none', 'unknown', 'not specified', 'kitchen') OR lower(brand) LIKE '%specified%'"
-fi
-
 log 'extract'
 psql_db -c 'SELECT etl.extract();'
-
-if [ -f /app/data/raw/raw_sales.csv ]; then
-    log 'raw_sales <- /app/data/raw/raw_sales.csv'
-    psql_db -c "\\copy staging.raw_sales (sale_id, category) FROM '/app/data/raw/raw_sales.csv' WITH (FORMAT csv, HEADER true)"
-elif [ -f /app/data/fact_sales.csv ]; then
-    log 'raw_sales <- /app/data/fact_sales.csv'
-    psql_db -c "\\copy staging.raw_sales (sale_id, category) FROM PROGRAM 'tail -n +2 /app/data/fact_sales.csv | cut -d, -f1,11' WITH (FORMAT csv)"
-else
-    log 'raw_sales <- public.fact_sales'
-    psql_db -c 'INSERT INTO staging.raw_sales (sale_id, category) SELECT sale_id, category FROM public.fact_sales;'
-fi
 
 log 'pipeline'
 psql_db -c 'SELECT etl.run_pipeline();'

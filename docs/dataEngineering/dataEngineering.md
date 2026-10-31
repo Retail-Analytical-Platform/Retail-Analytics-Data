@@ -10,7 +10,7 @@ SQL stage functions, Python helpers, two scrapers.
 
 ---
 
-## 0. The Big Picture
+## The Big Picture
 
 ```
 data/*.csv ──► public  ──► staging ──► transformed ──► clean
@@ -47,24 +47,20 @@ re-run.
   (extract → transform → load).
 - Secrets are **files, never env vars in git**: `secrets/database_url.txt`,
   `secrets/postgres_password.txt`, mounted at `/run/secrets/*`.
-- `docker/etl.Dockerfile` builds on `postgres:16-alpine`, sets
-  `RAW_SALES_CSV=/app/data/raw/raw_sales.csv`.
+- `docker/etl.Dockerfile` builds on `postgres:16-alpine` and runs `etl/run_etl.sh`.
 
 ```bash
 docker compose up -d                          # database only
 docker compose --profile etl run --rm etl     # run the whole pipeline in Docker
 ```
 
-### Two ways to get a connection (both exist on purpose)
+### Connection
 
-| File | Used by | Resolution order |
-|---|---|---|
-| `connectdb.py` | the notebook | `secrets/database_url.txt` (walking up from cwd) → `DATABASE_URL` env |
-| `secretsget.py` | containerised scripts | `/run/secrets/<name>` → env var → local `secrets/<name>.txt` |
-
-`secretsget.get_secret(name)` reads Docker's `/run/secrets` first so the same
-code works inside the container and on the laptop; both `strip()` the trailing
-newline and fail loudly with a message naming all three places it looked.
+`connection/connectdb.py` is the single connection helper. `get_secret(name)`
+resolves `/run/secrets/<name>` → env var → local `secrets/<name>.txt`, so the
+same code works inside the container and on the laptop. It `strip()`s the
+trailing newline and fails loudly with a message naming all three places it
+looked.
 
 ### Python environment
 
@@ -101,9 +97,6 @@ Helper functions defined here and used for the rest of the notebook:
 - `run_file(path)` — executes a `.sql` file on a raw psycopg2 connection.
 - `query(sql)` — `pd.read_sql` helper; every SELECT in the notebook goes
   through it.
-- `LOAD_RAW_SALES = True` — separately `COPY`s the original
-  `sale_id, category` pairs into `staging.raw_sales`, because those columns get
-  overwritten later and the originals are needed for the audit.
 
 ---
 
@@ -119,9 +112,8 @@ overwritten.
 | `etl.product_category_map` | Issue 2 | `product_name → category`. Seeded by name: any name that has a `Home` row anywhere is `Home`, everything else `Electronics` → **42 names mapped** |
 | `etl.quantity_rules` | Issue 1 | `category + name_pattern → pack/unit + units_per_pack`. `Electronics '%4-Pack%'` = 4 units per pack; everything else 1 unit |
 | `etl.pricing_rules` | Issues 5, 9 | `category + name_pattern → unit_cost, list_price, source`, with `CHECK (list_price >= unit_cost)` so a negative margin is impossible to insert. Seeded as an explicit **PLACEHOLDER**: median source `unit_cost` per name × 1.60 |
-| `etl.decision_log` | 4, 5, 2, 8, 7 | One row per issue: `decision` ∈ accept/fix/reject + the reasoning |
 
-`etl.decision_log` verbatim:
+Decisions recorded for each issue (documentation only; no longer stored in the database):
 
 | # | Decision | Rationale |
 |---|---|---|
@@ -130,6 +122,7 @@ overwritten.
 | 2 | accept | `fact_sales` keeps its original 4 categories (42/26/20/12); `dim_product.category` keeps original labels; `product_group` holds the name-based classification |
 | 8 | reject | Do **not** derive `fact_sales.category` from `dim_product` — that would delete Apparel/Grocery. Flag the disagreement in `category_matches_product` instead |
 | 7 | accept | Official revenue = `round(quantity * unit_price * (1 - discount_pct), 2)`; the source column is kept for audit only |
+| 10 | accept | Canonical time axis is `sold_at`. The declared monthly revenue curve holds on `sold_at`; `date_key` maps to different months for 98.8 % of rows |
 
 ---
 
@@ -141,16 +134,6 @@ overwritten.
 2. Drop and recreate `staging.dim_date / dim_product / dim_customer /
    dim_store / fact_sales` as `CREATE TABLE AS TABLE public.<table>` — a
    **structural copy**, no logic, so the stage is a true snapshot.
-3. `TRUNCATE staging.raw_sales` (the audit pair table; loaded by the notebook
-   via `COPY`).
-
-`etl.validate_raw_sales()` — `RAISE EXCEPTION` if `raw_sales` is empty or has
-duplicate `sale_id`. Called from inside `transform()`.
-
-Note recorded in the file: the CSV import cannot happen inside PostgreSQL, so
-`raw_sales` is loaded client-side (`COPY` from the notebook, or
-`\copy` in psql).
-
 `extract.py` is the standalone Python equivalent, used when the pipeline is run
 from files rather than from the database: dumps all five `public` tables plus
 `raw_sales.csv` to `data/staging/` (`ETL_STAGING_DIR`, `RAW_SALES_CSV`), with
@@ -191,10 +174,8 @@ number, else `EXCEPTION`.
   count orders per customer, and score `completeness` = how many of
   name/city/country/segment are present.
 - Survivor per group via `first_value() OVER (PARTITION BY coalesce(email || '|' || name_norm, '#' || customer_key) ORDER BY n_orders DESC, completeness DESC, customer_key)` — duplicate = **same email AND same name**; a NULL email or name can never merge anyone.
-- `customer_dedup_map` (loser → survivor), `customer_duplicate_pairs`
-  (side-by-side comparison of every same-email pair with `same_city`,
-  `same_segment`, `merged` flags), `customer_review` (**same email, different
-  names → deliberately NOT merged**), and `dim_customer` = survivors only.
+- Same email with different names is **deliberately NOT merged**; `dim_customer` =
+  survivors only. No separate mapping or audit tables are published.
 - `fact_sales.customer_key` is rewritten to the survivor key, so revenue follows
   the person.
 - Gate: no remaining `(email, lower(name))` duplicate in `dim_customer`.
@@ -204,7 +185,7 @@ number, else `EXCEPTION`.
 - `qrule` resolves `quantity_basis`/`units_per_pack` per product via
   `quantity_rules`.
 - Selects the fact rows with: `customer_key` → survivor, `category` from
-  `raw_sales` when loaded (authoritative original) else the staging column,
+  the staging column,
   `category_matches_product` (Issue 8 flag), `quantity_basis`, `units_sold`,
   `qty_at_max`, `revenue_expected`, and `revenue_mismatch` (`> 0.05` deviation).
 
@@ -234,15 +215,16 @@ Issue 8: sale category equals product category on 27.5 percent of rows
 ## 6. Step 4 — `load.sql`: Publish `clean` With Constraints
 
 `etl.load()` refuses to run without `transformed.fact_sales`, then rebuilds
-`clean` as a **constrained, self-documenting star schema**:
+`clean` as a **constrained, self-documenting star schema**. The tables are moved
+out of `transformed` (`ALTER TABLE ... SET SCHEMA`), not copied, so `transformed`
+is empty after a run and `load()` needs a fresh `etl.transform()` each time:
 
 | Table | Constraints added |
 |---|---|
 | `clean.dim_date` | PK `date_key`, `CHECK` that `month_name` position = month number (Issue 3) |
 | `clean.dim_product` | PK `product_key`, `product_group NOT NULL`, `CHECK (list_price >= unit_cost)` (Issue 5) |
 | `clean.dim_customer` / `dim_store` | PK |
-| `clean.fact_sales` | PK `sale_id`, `CHECK (0 <= discount_pct < 1)` (Issue 4), FKs to all four dimensions |
-| `clean.customer_dedup_map` / `customer_review` / `customer_duplicate_pairs` | the Issue 6 audit trail, published |
+| `clean.fact_sales` | PK `sale_id`, `CHECK (0 <= discount_pct < 1)` (Issue 4), indexes on the four dimension keys (no FK constraints; `transform()` already fails on orphan keys) |
 | `clean.v_fact_sales` | view joining the fact to the product, exposing `product_category`, `product_group`, and `net_revenue = revenue_expected` |
 
 Business definitions are stored **in the database** as column comments, so they
@@ -263,7 +245,7 @@ cell 2  ## Step 2: reset public from the CSVs            (guarded by CONFIRM_RES
 cell 3  the DROP / schema.sql / COPY block
 cell 5  ## Step 3: install the rules and the three stage functions
 cell 7  ## Step 4: run extract -> transform -> load
-        SELECT etl.extract() → COPY raw_sales → SELECT etl.transform() → SELECT etl.load()
+        SELECT etl.extract() → SELECT etl.transform() → SELECT etl.load()
         then prints every NOTICE containing "Issue"
 ```
 
@@ -365,14 +347,13 @@ margins 17 / 23 / 29 / 31.5 / 38.5 / 46 % — one per category × subcategory ba
 | File | Role |
 |---|---|
 | `main_pipeline.ipynb` | The driver. 71 cells: setup → reset → rules → stages → pricing repair |
-| `rules.sql` | `etl` schema: category map, quantity rules, pricing rules, decision log |
-| `extract.sql` | `etl.extract()` + `etl.validate_raw_sales()` |
+| `rules.sql` | `etl` schema: category map, quantity rules, pricing rules |
+| `extract.sql` | `etl.extract()` |
 | `transform.sql` | `etl.transform()` — the bulk of the logic, 8 gates |
-| `load.sql` | `etl.load()` — `clean` schema, PKs/FKs/CHECKs, view, comments |
+| `load.sql` | `etl.load()` — `clean` schema, PKs/CHECKs/indexes, view, comments |
 | `pipeline.sql` | `etl.run_pipeline()` convenience wrapper |
 | `extract.py` | Standalone file-based extract (dumps to `data/staging/`) |
 | `connectdb.py` | Engine factory for the notebook |
-| `secretsget.py` | Docker `/run/secrets` → env → local file secret resolution |
 | `scrape.py` | eBay scraper v1 — full-name search, brand recovery by regex (superseded) |
 | `scrapedatabrand.py` | eBay scraper v2 — Brand aspect refinement, per-brand median prices (kept) |
 | `products.txt` | Input list for both scrapers: one `"Brand Base Name"` per line |
