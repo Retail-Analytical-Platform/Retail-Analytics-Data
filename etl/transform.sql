@@ -1,4 +1,3 @@
--- transform.sql  (Option A: fact_sales keeps its ORIGINAL 4 categories, 42/26/20/12)
 CREATE SCHEMA IF NOT EXISTS etl;
 
 CREATE OR REPLACE FUNCTION etl.transform()
@@ -13,7 +12,6 @@ DECLARE
     bad_distribution boolean;
     cat_match_pct  numeric;
 BEGIN
-    -- raw_sales (CSV) = authoritative original category. If it is not loaded, staging.fact_sales.category is used.
     IF EXISTS (SELECT 1 FROM staging.raw_sales) THEN
         PERFORM etl.validate_raw_sales();
     ELSE
@@ -32,7 +30,7 @@ BEGIN
     DROP TABLE IF EXISTS transformed.dim_date;
     DROP TABLE IF EXISTS transformed.customer_ranked;
 
-    -- ---------------- Issue 3: dim_date ----------------
+    -- ---------------- dim_date ----------------
     SELECT count(*) INTO src_month_bad FROM staging.dim_date
     WHERE month_name IS DISTINCT FROM trim(to_char(full_date, 'Month'));
     RAISE NOTICE 'Issue 3: source month_name mismatches = %', src_month_bad;
@@ -53,7 +51,7 @@ BEGIN
               IS DISTINCT FROM extract(month FROM full_date)::int
     ) THEN RAISE EXCEPTION 'month_name does not match full_date'; END IF;
 
-    -- ------- Issues 2, 5, 9: dim_product (category map + pricing rules) -------
+    -- ------- dim_product (category map + pricing rules) -------
     SELECT count(*) INTO src_neg_margin FROM staging.dim_product WHERE unit_cost > list_price;
     RAISE NOTICE 'Issue 5: source products with unit_cost > list_price = %', src_neg_margin;
 
@@ -63,7 +61,7 @@ BEGIN
                btrim(category) AS category, btrim(subcategory) AS subcategory
         FROM staging.dim_product
     ), cat AS (
-        -- category = original 4-value label (kept as is); product_group = corrected by product name
+        -- category = original 4-value label; product_group = corrected by product name
         SELECT b.product_key, b.product_name, b.category, b.subcategory, m.category AS product_group
         FROM base b LEFT JOIN etl.product_category_map m ON m.product_name = b.product_name
     ), priced AS (
@@ -91,7 +89,7 @@ BEGIN
         RAISE EXCEPTION 'negative-margin products remain after applying pricing rules';
     END IF;
 
-    -- ---------------- Issue 6: customers ----------------
+    -- ---------------- customers ----------------
     CREATE TABLE transformed.customer_ranked AS
     WITH order_counts AS (
         SELECT customer_key, count(*) AS n_orders FROM staging.fact_sales GROUP BY customer_key
@@ -140,7 +138,7 @@ BEGIN
 
     CREATE TABLE transformed.dim_store AS TABLE staging.dim_store;
 
-    -- ------ Issues 1, 2, 7: fact_sales (category = original sale category) ------
+    -- ------ fact_sales (category = original sale category) ------
     CREATE TABLE transformed.fact_sales AS
     WITH qrule AS (
         SELECT p.product_key, r.quantity_basis,
@@ -152,16 +150,17 @@ BEGIN
             ORDER BY length(q.name_pattern) DESC, q.rule_id LIMIT 1
         ) r ON true
     )
-    SELECT f.sale_id, to_char(f.sold_at, 'YYYYMMDD')::int AS date_key, f.product_key,           coalesce(m.survivor_key, f.customer_key) AS customer_key,
+    SELECT f.sale_id, to_char(f.sold_at, 'YYYYMMDD')::int AS date_key, f.product_key,
+            coalesce(m.survivor_key, f.customer_key) AS customer_key,
            f.store_key, f.sold_at, f.quantity, f.unit_price, f.discount_pct,
            f.revenue,
-           coalesce(btrim(r.category), btrim(f.category)) AS category,     -- Issue 2: original category
+           coalesce(btrim(r.category), btrim(f.category)) AS category,     --original category
            p.category IS NOT DISTINCT FROM coalesce(btrim(r.category), btrim(f.category))
                AS category_matches_product,
-           q.quantity_basis,                                               -- Issue 1
+           q.quantity_basis,                                               
            f.quantity * q.mult AS units_sold,
            f.quantity = max(f.quantity) OVER () AS qty_at_max,
-           round(f.quantity * f.unit_price * (1 - f.discount_pct), 2) AS revenue_expected,  -- Issue 7
+           round(f.quantity * f.unit_price * (1 - f.discount_pct), 2) AS revenue_expected,  
            abs(f.revenue - round(f.quantity * f.unit_price * (1 - f.discount_pct), 2)) > 0.05
                AS revenue_mismatch
     FROM staging.fact_sales f
