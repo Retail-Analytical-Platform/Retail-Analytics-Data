@@ -60,9 +60,9 @@ jobs:
       - name: Run extract
         run: $PSQL -c "SELECT etl.extract();"
 
-      - name: Load raw_sales
+      - name: Load fact_sales
         run: |
-          $PSQL -c "\copy raw_sales FROM 'data/fact_sales.csv' CSV HEADER"
+          $PSQL -c "\copy fact_sales FROM 'data/fact_sales.csv' CSV HEADER"
 
       - name: Run pipeline
         run: $PSQL -c "SELECT etl.run_pipeline();"
