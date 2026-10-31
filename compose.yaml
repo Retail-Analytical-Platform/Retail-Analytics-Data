@@ -4,32 +4,33 @@ services:
     container_name: retailspg
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - retailspg-data:/var/lib/postgresql/data
     secrets:
       - postgres_password
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
-      interval : 5s
-      timeout : 5s
-      retries : 12
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
 
   etl:
     depends_on:
       postgres:
         condition: service_healthy
     build:
-      context: . 
+      context: .
       dockerfile: docker/etl.Dockerfile
-    secrets : 
+    secrets:
       - database_url
-    volumes :
+    volumes:
       - ./data:/app/data
-    profiles : ["etl"]
+    profiles: ["etl"]
 
 secrets:
   database_url:

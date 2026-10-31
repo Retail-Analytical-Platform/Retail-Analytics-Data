@@ -1,6 +1,3 @@
--- Regression tests for etl.validate_raw_sales() (issue #66).
--- Run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f tests/validate_raw_sales_test.sql
--- Everything runs in one transaction that is rolled back.
 BEGIN;
 SELECT etl.extract();
 

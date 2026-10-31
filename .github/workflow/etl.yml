@@ -1,0 +1,70 @@
+name: ETL smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  etl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ${{ vars.CI_DB_USER || 'ci' }}
+          POSTGRES_PASSWORD: ${{ secrets.CI_DB_PASSWORD || 'ci_password' }}
+          POSTGRES_DB: ${{ vars.CI_DB_NAME || 'retail' }}
+        ports:
+          - ${{ vars.CI_DB_PORT || '5432' }}:5432
+        options: >-
+          --health-cmd "pg_isready -U ${{ vars.CI_DB_USER || 'ci' }} -d ${{ vars.CI_DB_NAME || 'retail' }}"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      PGHOST: localhost
+      PGPORT: ${{ vars.CI_DB_PORT || '5432' }}
+      PGUSER: ${{ vars.CI_DB_USER || 'ci' }}
+      PGPASSWORD: ${{ secrets.CI_DB_PASSWORD || 'ci_password' }}
+      PGDATABASE: ${{ vars.CI_DB_NAME || 'retail' }}
+      PSQL: psql -v ON_ERROR_STOP=1
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Load schema
+        run: $PSQL -f data/schema.sql
+
+      - name: Load CSV data
+        run: |
+          # TODO: one \copy per CSV, matching your real table and file names
+          $PSQL -c "\copy raw_customers FROM 'data/customers.csv' CSV HEADER"
+          $PSQL -c "\copy raw_products  FROM 'data/products.csv'  CSV HEADER"
+
+      - name: Install rules and ETL functions
+        run: |
+          # TODO: use your real file names, in dependency order
+          $PSQL -f etl/rules.sql
+          $PSQL -f etl/extract.sql
+          $PSQL -f etl/transform.sql
+          $PSQL -f etl/load.sql
+          $PSQL -f etl/pipeline.sql
+
+      - name: Run extract
+        run: $PSQL -c "SELECT etl.extract();"
+
+      - name: Load raw_sales
+        run: |
+          # TODO: load the sales CSV into raw_sales
+          $PSQL -c "\copy raw_sales FROM 'data/sales.csv' CSV HEADER"
+
+      - name: Run pipeline
+        run: $PSQL -c "SELECT etl.run_pipeline();"
+
+      - name: Run assertion
+        run: $PSQL -f tests/assertion.sql
