@@ -67,5 +67,5 @@ jobs:
       - name: Run pipeline
         run: $PSQL -c "SELECT etl.run_pipeline();"
 
-      - name: Run assertions
+      - name: Run assertion
         run: $PSQL -f tests/assertion.sql
