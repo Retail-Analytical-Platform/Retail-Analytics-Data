@@ -4,11 +4,16 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   etl:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    defaults:
+      run:
+        shell: bash       
 
     services:
       postgres:
@@ -42,24 +47,22 @@ jobs:
 
       - name: Load CSV data
         run: |
-          $PSQL -c "\copy raw_customers FROM 'data/dim_customer.csv' CSV HEADER"
-          $PSQL -c "\copy raw_products  FROM 'data/dim_product.csv'  CSV HEADER"
+          for t in dim_date dim_product dim_customer dim_store fact_sales; do
+            $PSQL -c "\copy public.$t FROM 'data/$t.csv' WITH (FORMAT csv, HEADER true)"
+          done
 
       - name: Install rules and ETL functions
         run: |
-          # TODO: use your real file names, in dependency order
-          $PSQL -f etl/rules.sql
-          $PSQL -f etl/extract.sql
-          $PSQL -f etl/transform.sql
-          $PSQL -f etl/load.sql
-          $PSQL -f etl/pipeline.sql
+          for f in rules extract transform load pipeline; do
+            $PSQL -f "etl/$f.sql"
+          done
 
       - name: Run extract
         run: $PSQL -c "SELECT etl.extract();"
 
       - name: Load raw_sales
         run: |
-          $PSQL -c "\copy raw_sales FROM 'data/fact_sales.csv' CSV HEADER"
+          cut -d, -f1,11 data/fact_sales.csv | $PSQL -c "\copy staging.raw_sales (sale_id, category) FROM STDIN WITH (FORMAT csv, HEADER true)"
 
       - name: Run pipeline
         run: $PSQL -c "SELECT etl.run_pipeline();"
