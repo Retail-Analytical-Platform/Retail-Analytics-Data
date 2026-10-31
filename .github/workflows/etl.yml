@@ -25,16 +25,16 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
+      
       - name: Reload source tables from CSV
         run: |
           $PSQL "$DATABASE_URL" -1 <<'SQL'
           TRUNCATE public.fact_sales, public.dim_date, public.dim_product, public.dim_customer, public.dim_store;
-          \copy public.dim_date FROM 'data/dim_date.csv' WITH (FORMAT csv, HEADER true)
-          \copy public.dim_product FROM 'data/dim_product.csv' WITH (FORMAT csv, HEADER true)
-          \copy public.dim_customer FROM 'data/dim_customer.csv' WITH (FORMAT csv, HEADER true)
-          \copy public.dim_store FROM 'data/dim_store.csv' WITH (FORMAT csv, HEADER true)
-          \copy public.fact_sales FROM 'data/fact_sales.csv' WITH (FORMAT csv, HEADER true)
+          \copy public.dim_date (date_key, full_date, day_of_week, month_name, quarter, is_weekend) FROM 'data/dim_date.csv' WITH (FORMAT csv, HEADER true)
+          \copy public.dim_product (product_key, product_name, category, subcategory, unit_cost, list_price) FROM 'data/dim_product.csv' WITH (FORMAT csv, HEADER true)
+          \copy public.dim_customer (customer_key, customer_name, email, city, country, segment) FROM 'data/dim_customer.csv' WITH (FORMAT csv, HEADER true)
+          \copy public.dim_store (store_key, store_name, region, store_type) FROM 'data/dim_store.csv' WITH (FORMAT csv, HEADER true)
+          \copy public.fact_sales (sale_id, date_key, product_key, customer_key, store_key, sold_at, quantity, unit_price, discount_pct, revenue, category) FROM 'data/fact_sales.csv' WITH (FORMAT csv, HEADER true)
           SQL
 
       - name: Install rules and ETL functions
