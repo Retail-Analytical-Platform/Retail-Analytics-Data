@@ -12,17 +12,7 @@ DECLARE
     bad_distribution boolean;
     cat_match_pct  numeric;
 BEGIN
-    IF EXISTS (SELECT 1 FROM staging.raw_sales) THEN
-        PERFORM etl.validate_raw_sales();
-    ELSE
-        RAISE NOTICE 'raw_sales empty: using staging.fact_sales.category';
-    END IF;
-
     CREATE SCHEMA IF NOT EXISTS transformed;
-    DROP TABLE IF EXISTS transformed.category_audit;
-    DROP TABLE IF EXISTS transformed.customer_duplicate_pairs;
-    DROP TABLE IF EXISTS transformed.customer_review;
-    DROP TABLE IF EXISTS transformed.customer_dedup_map;
     DROP TABLE IF EXISTS transformed.fact_sales;
     DROP TABLE IF EXISTS transformed.dim_store;
     DROP TABLE IF EXISTS transformed.dim_customer;
@@ -110,28 +100,6 @@ BEGIN
     ) AS survivor_key
     FROM normalized;
 
-    CREATE TABLE transformed.customer_dedup_map AS
-    SELECT customer_key AS loser_key, survivor_key
-    FROM transformed.customer_ranked WHERE customer_key <> survivor_key;
-
-    CREATE TABLE transformed.customer_duplicate_pairs AS
-    SELECT a.email, a.customer_key AS key_a, b.customer_key AS key_b,
-           a.name_norm IS NOT DISTINCT FROM b.name_norm AS same_name,
-           a.city      IS NOT DISTINCT FROM b.city      AS same_city,
-           a.country   IS NOT DISTINCT FROM b.country   AS same_country,
-           a.segment   IS NOT DISTINCT FROM b.segment   AS same_segment,
-           a.n_orders AS orders_a, b.n_orders AS orders_b,
-           a.survivor_key = b.survivor_key AS merged
-    FROM transformed.customer_ranked a
-    JOIN transformed.customer_ranked b ON a.email = b.email AND a.customer_key < b.customer_key;
-
-    CREATE TABLE transformed.customer_review AS      -- same email, different names: NOT merged
-    SELECT customer_key, customer_name, email
-    FROM transformed.customer_ranked
-    WHERE email IN (SELECT email FROM transformed.customer_ranked WHERE email IS NOT NULL
-                    GROUP BY email HAVING count(DISTINCT name_norm) > 1)
-    ORDER BY email, customer_key;
-
     CREATE TABLE transformed.dim_customer AS
     SELECT customer_key, customer_name, email, city, country, segment
     FROM transformed.customer_ranked WHERE customer_key = survivor_key;
@@ -151,12 +119,11 @@ BEGIN
         ) r ON true
     )
     SELECT f.sale_id, to_char(f.sold_at, 'YYYYMMDD')::int AS date_key, f.product_key,
-            coalesce(m.survivor_key, f.customer_key) AS customer_key,
+            coalesce(c.survivor_key, f.customer_key) AS customer_key,
            f.store_key, f.sold_at, f.quantity, f.unit_price, f.discount_pct,
            f.revenue,
-           coalesce(btrim(r.category), btrim(f.category)) AS category,     --original category
-           p.category IS NOT DISTINCT FROM coalesce(btrim(r.category), btrim(f.category))
-               AS category_matches_product,
+           btrim(f.category) AS category,     --original category
+           p.category IS NOT DISTINCT FROM btrim(f.category) AS category_matches_product,
            q.quantity_basis,                                               
            f.quantity * q.mult AS units_sold,
            f.quantity = max(f.quantity) OVER () AS qty_at_max,
@@ -166,8 +133,7 @@ BEGIN
     FROM staging.fact_sales f
     JOIN transformed.dim_product p ON p.product_key = f.product_key
     JOIN qrule q ON q.product_key = f.product_key
-    LEFT JOIN staging.raw_sales r ON r.sale_id = f.sale_id
-    LEFT JOIN transformed.customer_dedup_map m ON m.loser_key = f.customer_key;
+    LEFT JOIN transformed.customer_ranked c ON c.customer_key = f.customer_key;
 
     -- ---------------- quality gates ----------------
     IF (SELECT count(*) FROM transformed.fact_sales) <> (SELECT count(*) FROM staging.fact_sales) THEN
@@ -211,58 +177,5 @@ BEGIN
     RAISE NOTICE 'Issue 7: stored revenue differs from the standard formula on % percent of rows', mismatch_rate;
 
     DROP TABLE transformed.customer_ranked;
-END;
-$$;
-
-CREATE OR REPLACE FUNCTION etl.transform_notebook()
-RETURNS void
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    -- Rename first, so the statements below work on a first call and on a repeat call.
-    IF EXISTS (SELECT 1 FROM information_schema.columns
-               WHERE table_schema = 'public' AND table_name = 'dim_product'
-                 AND column_name = 'list_price') THEN
-        ALTER TABLE public.dim_product RENAME COLUMN list_price TO retail_price;
-    END IF;
-    IF EXISTS (SELECT 1 FROM information_schema.columns
-               WHERE table_schema = 'public' AND table_name = 'fact_sales'
-                 AND column_name = 'unit_price') THEN
-        ALTER TABLE public.fact_sales RENAME COLUMN unit_price TO retail_price;
-    END IF;
-
-    ALTER TABLE public.dim_product ADD COLUMN IF NOT EXISTS category text;
-
-    IF to_regclass('clean.dim_product') IS NOT NULL THEN
-        UPDATE public.dim_product AS t SET category = s.product_group FROM clean.dim_product AS s WHERE t.product_key = s.product_key AND (t.category IS NULL OR t.category = '');
-    END IF;
-
-    UPDATE public.fact_sales AS fs SET category = dp.category FROM public.dim_product AS dp WHERE fs.product_key = dp.product_key AND (fs.category IS NULL OR fs.category = '');
-
-    UPDATE public.dim_product d
-    SET product_name = (ARRAY['Sony','Samsung','LG','Philips','Apple','Xiaomi','Bose','JBL','Anker','Logitech','Dell','ASUS','Lenovo','Huawei','Panasonic','Sharp','Toshiba','Hisense','TCL','Dyson','Bosch','Siemens','Whirlpool','Electrolux','Tefal','Cuisinart','OXO','Ikea','Belkin','Baseus','TP-Link','Netgear','Razer','Corsair','Garmin','Sennheiser','Haier','Midea','Ninja','Shark'])[n.rn] || ' ' || d.product_name
-    FROM (SELECT product_key, ROW_NUMBER() OVER (PARTITION BY product_name ORDER BY product_key) AS rn FROM public.dim_product) n
-    WHERE d.product_key = n.product_key AND n.rn > 1;
-
-    UPDATE public.brand_data SET brand = 'Non Brand'
-    WHERE brand IS NULL OR LOWER(TRIM(brand)) IN ('', 'n/a', 'na', 'none', 'unknown', 'not specified', 'kitchen') OR LOWER(brand) LIKE '%specified%';
-
-    IF EXISTS (SELECT 1 FROM public.brand_data WHERE brand IS NOT NULL AND brand != 'Non Brand') THEN
-        WITH bd AS (
-            SELECT DISTINCT ON (base_name, brand) base_name, brand, price
-            FROM public.brand_data WHERE brand IS NOT NULL AND brand != 'Non Brand'
-            ORDER BY base_name, brand, n_used DESC
-        ),
-        bd_named AS (SELECT base_name, brand, price, brand || ' ' || base_name AS product_name FROM bd),
-        dim_bases AS (
-            SELECT dp.product_key, dp.product_name, dp.retail_price,
-                   (SELECT b.base_name FROM bd_named b WHERE dp.product_name LIKE '% ' || b.base_name ORDER BY length(b.base_name) DESC LIMIT 1) AS base_name
-            FROM public.dim_product dp
-        )
-        UPDATE public.dim_product dp
-        SET product_name = bn.product_name, retail_price = COALESCE(bn.price, dp.retail_price)
-        FROM dim_bases db LEFT JOIN bd_named bn ON bn.base_name = db.base_name
-        WHERE dp.product_key = db.product_key AND bn.product_name IS NOT NULL AND bn.product_name != db.product_name;
-    END IF;
 END;
 $$;
