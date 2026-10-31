@@ -42,8 +42,11 @@ jobs:
 
       - name: Load CSV data
         run: |
-          $PSQL -c "\copy raw_customers FROM 'data/dim_customer.csv' CSV HEADER"
-          $PSQL -c "\copy raw_products  FROM 'data/dim_product.csv'  CSV HEADER"
+          $PSQL -c "\copy dim_date     FROM 'data/dim_date.csv'     CSV HEADER"
+          $PSQL -c "\copy dim_product  FROM 'data/dim_product.csv'  CSV HEADER"
+          $PSQL -c "\copy dim_customer FROM 'data/dim_customer.csv' CSV HEADER"
+          $PSQL -c "\copy dim_store    FROM 'data/dim_store.csv'    CSV HEADER"
+          $PSQL -c "\copy fact_sales   FROM 'data/fact_sales.csv'   CSV HEADER"
 
       - name: Install rules and ETL functions
         run: |
