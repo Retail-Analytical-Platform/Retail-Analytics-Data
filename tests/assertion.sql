@@ -22,4 +22,3 @@ BEGIN
     RAISE EXCEPTION 'staging.raw_sales: expected 60000 rows, got %', n;
   END IF;
 END $$;
-##assertion file
