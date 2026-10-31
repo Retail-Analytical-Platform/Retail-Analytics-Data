@@ -60,6 +60,11 @@ BEGIN
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (customer_key) REFERENCES clean.dim_customer(customer_key);
     ALTER TABLE clean.fact_sales ADD FOREIGN KEY (store_key) REFERENCES clean.dim_store(store_key);
 
+    CREATE INDEX idx_fact_sales_date_key     ON clean.fact_sales (date_key);
+    CREATE INDEX idx_fact_sales_product_key  ON clean.fact_sales (product_key);
+    CREATE INDEX idx_fact_sales_customer_key ON clean.fact_sales (customer_key);
+    CREATE INDEX idx_fact_sales_store_key    ON clean.fact_sales (store_key);
+
     EXECUTE $v$
         CREATE VIEW clean.v_fact_sales AS
         SELECT f.*, p.category AS product_category, p.product_group, f.revenue_expected AS net_revenue
@@ -72,6 +77,7 @@ BEGIN
         'Official net revenue = round(quantity * unit_price * (1 - discount_pct), 2)';
     COMMENT ON COLUMN clean.fact_sales.units_sold IS
         'Quantity in single units: quantity * units_per_pack when quantity_basis = pack';
+    ANALYZE clean.dim_date, clean.dim_product, clean.dim_customer, clean.dim_store, clean.fact_sales;
 END;
 $$;
 
