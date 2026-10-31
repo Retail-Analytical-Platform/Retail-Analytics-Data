@@ -4,9 +4,15 @@ set -eu
 log() { printf 'etl: %s\n' "$*"; }
 die() { printf 'etl: ERROR: %s\n' "$*" >&2; exit 1; }
 
-url=$(cat /run/secrets/database_url 2>/dev/null || true)
-url=${url:-${DATABASE_URL:-}}
-[ -n "$url" ] || die 'no database URL in /run/secrets/database_url or DATABASE_URL'
+env_file=${ENV_FILE:-/app/.env}
+if [ -f "$env_file" ]; then
+    set -a
+    . "$env_file"
+    set +a
+fi
+
+url=${DATABASE_URL:-}
+[ -n "$url" ] || die 'DATABASE_URL is not set'
 
 psql_db() {
     psql -w -v ON_ERROR_STOP=1 -d "$url" "$@"
@@ -16,7 +22,7 @@ attempt=0
 until psql_db -Atqc 'SELECT 1' >/dev/null 2>&1; do
     attempt=$((attempt + 1))
     [ "$attempt" -lt 30 ] || die 'database not reachable after 60 seconds'
-    [ "$attempt" -eq 1 ] && log 'waiting for database...'
+    [ "$attempt" -eq 1 ] && log 'waiting for database.'
     sleep 2
 done
 log 'connected'
