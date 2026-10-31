@@ -42,9 +42,8 @@ jobs:
 
       - name: Load CSV data
         run: |
-          # TODO: one \copy per CSV, matching your real table and file names
-          $PSQL -c "\copy raw_customers FROM 'data/dim_customers.csv' CSV HEADER"
-          $PSQL -c "\copy raw_products  FROM 'data/dim_products.csv'  CSV HEADER"
+          $PSQL -c "\copy raw_customers FROM 'data/dim_customer.csv' CSV HEADER"
+          $PSQL -c "\copy raw_products  FROM 'data/dim_product.csv'  CSV HEADER"
 
       - name: Install rules and ETL functions
         run: |
@@ -60,7 +59,6 @@ jobs:
 
       - name: Load raw_sales
         run: |
-          # TODO: load the sales CSV into raw_sales
           $PSQL -c "\copy raw_sales FROM 'data/fact_sales.csv' CSV HEADER"
 
       - name: Run pipeline
