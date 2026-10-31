@@ -31,7 +31,6 @@ jobs:
       PGUSER: ${{ vars.CI_DB_USER || 'ci' }}
       PGPASSWORD: ${{ secrets.CI_DB_PASSWORD || 'ci_password' }}
       PGDATABASE: ${{ vars.CI_DB_NAME || 'retail' }}
-      # Makes psql exit non-zero on the first SQL error, so the job fails
       PSQL: psql -v ON_ERROR_STOP=1
 
     steps:
@@ -67,5 +66,5 @@ jobs:
       - name: Run pipeline
         run: $PSQL -c "SELECT etl.run_pipeline();"
 
-      - name: Run assertions
-        run: $PSQL -f tests/assertions.sql1
+      - name: Run assertion
+        run: $PSQL -f tests/assertion.sql
