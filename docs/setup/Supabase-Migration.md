@@ -1,11 +1,11 @@
 # Migrating Data to Supabase
 
-Continuation of [Data-Integration-Docker.md](Data-Integration-Docker.md). Once
+Continuation of [Docker.md](Docker.md). Once
 the dataset in `retailspg` (Docker) is complete and you want it available
 online / shared with the team via Supabase, here's how.
 
-> **Prerequisite**: data is already loaded into the `retailspg` container (see
-> [Data-Integration-Docker.md](Data-Integration-Docker.md)), or at minimum
+> **Prerequisite**: data is already loaded into the `retailspg` container (run the
+> ETL service, see [Docker.md § 3](Docker.md#3-run-the-etl-pipeline)), or at minimum
 > `data/schema.sql` and the CSVs in `data/` already exist.
 
 ## Table of Contents
@@ -61,7 +61,7 @@ Two options, pick one:
 ### Option A — Replay schema.sql + CSV (recommended for this case)
 
 `\copy` in `psql` runs on the **client** side, so it can read the CSV
-directly from our own disk — no need for `docker cp` again, just point it at
+directly from our own disk — just point it at
 the Supabase connection string:
 
 ```bash
@@ -72,9 +72,8 @@ psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" \
 # repeat for dim_product, dim_customer, dim_store, then fact_sales last
 ```
 
-Table order is the same as in
-[Data-Integration-Docker.md § 4](Data-Integration-Docker.md#4-load-csv-into-tables)
-— dimensions first, `fact_sales` last (foreign keys).
+Table order matters: dimensions first (`dim_date`, `dim_product`,
+`dim_customer`, `dim_store`), `fact_sales` last (foreign keys).
 
 ### Option B — Dump from the container, restore into Supabase
 
@@ -94,9 +93,7 @@ in Supabase.
 
 ## 5. Verify
 
-Same count query as in
-[Data-Integration-Docker.md § 5](Data-Integration-Docker.md#5-verify),
-just pointed at the Supabase connection string:
+Count the rows, pointed at the Supabase connection string:
 
 ```bash
 psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" -c "
@@ -107,16 +104,18 @@ psql "postgresql://postgres:@db.<ref>.supabase.co:5432/postgres" -c "
   UNION ALL SELECT 'fact_sales', count(*) FROM fact_sales;"
 ```
 
-Or check directly in **Supabase Studio → Table Editor**. Expected numbers are
-the same as the table in
-[Data-Integration-Docker.md § 5](Data-Integration-Docker.md#5-verify)
-(730 / 400 / 2,000 / 40 / 60,000).
+Or check directly in **Supabase Studio → Table Editor**. Expected row counts
+(730 / 400 / 2,000 / 40 / 60,000) are listed in
+[`retailStarSchema.md`](../data/retailStarSchema.md).
 
 ## 6. Things to watch out for
 
 - **Never commit the Supabase password/connection string to git.** Keep it in
-  `.env` and add that to `.gitignore`. If needed, create a `.env.example`
-  with empty values so the team knows which variables are required.
+  `.env` or in `secrets/database_url.txt`; both are already gitignored. The
+  repo has no `.env.example`, so the only variable the ETL tooling reads is
+  `DATABASE_URL` (see [`connection/connectdb.py`](../../connection/connectdb.py)),
+  and the GitHub Actions ETL workflow takes the same URL from the repository
+  secret `URL`.
 - After this, `retailspg` (Docker) and Supabase become **two separate
   databases** — loading data into Supabase doesn't automatically sync back
   to `retailspg`, and vice versa. Decide which one is the source of truth for
