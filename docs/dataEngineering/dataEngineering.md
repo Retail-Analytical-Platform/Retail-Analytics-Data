@@ -6,7 +6,8 @@ eBay price scraping, and the manual pricing repair that ran on top of it.
 Written as a working reference for the Data Engineer role, not as a tutorial.
 
 **Location of the code:** `etl/` — driver notebook `etl/main_pipeline.ipynb`,
-SQL stage functions, Python helpers, two scrapers.
+SQL stage functions and the shell runner `etl/run_etl.sh`; `connection/` — the
+Python connection helpers; `scraped_data/` — the eBay scraper and its outputs.
 
 ---
 
@@ -69,7 +70,7 @@ newline and fail loudly with a message naming all three places it looked.
 ### Python environment
 
 `retailAnalytics/` is a venv (Python 3.14.7, matches the notebook kernel
-`retailAnalytics (3.14.7)`). `etl/requirements.txt` is a fully pinned freeze —
+`retailAnalytics (3.14.7)`). `requirements.txt` (repo root) is a fully pinned freeze —
 pandas 3.0.5, SQLAlchemy 2.0.52, psycopg2-binary 2.9.12, jupysql 0.11.1,
 matplotlib-inline, ipykernel, numpy.
 
@@ -151,10 +152,10 @@ Note recorded in the file: the CSV import cannot happen inside PostgreSQL, so
 `raw_sales` is loaded client-side (`COPY` from the notebook, or
 `\copy` in psql).
 
-`extract.py` is the standalone Python equivalent, used when the pipeline is run
-from files rather than from the database: dumps all five `public` tables plus
-`raw_sales.csv` to `data/staging/` (`ETL_STAGING_DIR`, `RAW_SALES_CSV`), with
-its own pre-flight checks — required columns present, no duplicate `sale_id`.
+In the Docker run, `etl/run_etl.sh` does that client-side load: from
+`data/raw/raw_sales.csv` if that file exists, otherwise from the `sale_id` and
+`category` columns of `data/fact_sales.csv`, otherwise from `public.fact_sales`.
+There is no standalone Python extract script in the repository.
 
 ---
 
@@ -282,9 +283,16 @@ and 33) and use the **eBay Browse API** with OAuth client-credentials, a cached
 token (`expires_in - 60`), `X-EBAY-C-MARKETPLACE-ID: EBAY_US`, and only
 `urllib` + `csv` + `statistics` — no SDK.
 
+> **Current state of the code.** The two scripts described below (v1 and v2)
+> were merged into the single `scraped_data/scrape.py`, which writes
+> `scraped_data/final_prices.csv` (v1 behaviour) and
+> `scraped_data/brand_prices.csv` (v2 behaviour) and looks for `products.txt`
+> in `etl/`, `scraped_data/` and `data/`. The v1/v2 names below are kept to
+> tell the history.
+
 ```bash
 export EBAY_CLIENT_ID=... EBAY_CLIENT_SECRET=... EBAY_ENV=production
-python scrape.py 10            # test on the first 10 names
+python scraped_data/scrape.py 10            # test on the first 10 names
 ```
 
 ### `scrape.py` — v1, superseded
@@ -370,12 +378,12 @@ margins 17 / 23 / 29 / 31.5 / 38.5 / 46 % — one per category × subcategory ba
 | `transform.sql` | `etl.transform()` — the bulk of the logic, 8 gates |
 | `load.sql` | `etl.load()` — `clean` schema, PKs/FKs/CHECKs, view, comments |
 | `pipeline.sql` | `etl.run_pipeline()` convenience wrapper |
-| `extract.py` | Standalone file-based extract (dumps to `data/staging/`) |
-| `connectdb.py` | Engine factory for the notebook |
-| `secretsget.py` | Docker `/run/secrets` → env → local file secret resolution |
-| `scrape.py` | eBay scraper v1 — full-name search, brand recovery by regex (superseded) |
-| `scrapedatabrand.py` | eBay scraper v2 — Brand aspect refinement, per-brand median prices (kept) |
-| `products.txt` | Input list for both scrapers: one `"Brand Base Name"` per line |
+| `run_etl.sh` | Docker/CLI runner: waits for the DB, loads `public` from `data/` if missing, runs extract → transform → load, checks the 60,000-row result |
+| `connection/connectdb.py` | Engine factory for the notebook |
+| `connection/secretsget.py` | Docker `/run/secrets` → env → local file secret resolution |
+| `scraped_data/scrape.py` | Merged eBay scraper: v1 full-name search plus v2 Brand-aspect refinement and per-brand median prices |
+| `scraped_data/products.txt` | Input list for the scraper: one `"Brand Base Name"` per line |
+| `scraped_data/*.csv` | Scraper outputs: `scraped_prices.csv`, `final_prices.csv`, `brand_prices.csv` |
 | `requirements.txt` | Pinned venv freeze (Python 3.14) |
 | `__pycache__/` | Stale build artefacts — `connectdb`, `scrape` |
 
@@ -397,8 +405,8 @@ margins 17 / 23 / 29 / 31.5 / 38.5 / 46 % — one per category × subcategory ba
    `dim_product_sync`. Move to a `scratch`/`staging` schema or drop them.
 5. **`main_pipeline.ipynb` has saved outputs and a `CONFIRM_RESET = True`**
    default — re-running from the top destroys the pricing repair (step 9).
-6. `extract.py` and the notebook do the same job two different ways; pick one as
-   canonical.
+6. `etl/run_etl.sh` (Docker/CI) and the notebook run the same pipeline two
+   different ways; pick one as canonical.
 7. eBay prices are a single marketplace (US), new-condition only, median of
    live listings, no shipping, no regional variance. `brand_data.low/high`
    should be used as sanity bands in any downstream margin report.

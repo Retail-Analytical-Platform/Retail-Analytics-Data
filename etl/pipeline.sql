@@ -1,5 +1,5 @@
 -- Full ETL pipeline orchestrator.
--- Extraction and raw_sales loading are performed by etl/run_etl.sh.
+-- etl.extract() must be run first (etl/run_etl.sh and the GitHub workflow do this).
 CREATE SCHEMA IF NOT EXISTS etl;
 
 CREATE OR REPLACE FUNCTION etl.run_pipeline()
@@ -11,4 +11,3 @@ BEGIN
     PERFORM etl.load();
 END;
 $$;
-
