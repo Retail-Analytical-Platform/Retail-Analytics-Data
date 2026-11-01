@@ -179,3 +179,4 @@ BEGIN
     DROP TABLE transformed.customer_ranked;
 END;
 $$;
+
