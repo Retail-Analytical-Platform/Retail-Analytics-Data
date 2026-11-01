@@ -1,6 +1,7 @@
 # SQL Analysis Walkthrough — Retail Sales Star Schema
 ---
-
+> **Historical note:** This log refers to the `fact_sales_clean` view, which the pipeline no longer creates (it is dropped on reset). Use `clean.v_sales_bi` for BI reporting. See issue #65.
+> 
 ## 1. Data Correlation — How All the Tables Relate
 
 This dataset is a **star schema**: one fact table (`fact_sales`, 60,000 rows)
@@ -15,7 +16,7 @@ dim_store(store_key)       ─┘
 
 | Table | Rows | Primary Key | Role |
 |---|---|---|---|
-| `dim_customer` | 2,000 | `customer_key` | who bought |
+| `dim_customer` | 1,995 | `customer_key` | who bought |
 | `dim_date` | 730 | `date_key` | when the transaction happened |
 | `dim_product` | ~400 | `product_key` | what was bought |
 | `dim_store` | 40 | `store_key` | which store/region |
