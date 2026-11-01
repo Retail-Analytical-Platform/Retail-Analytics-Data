@@ -40,7 +40,7 @@ Learn structure  →   Audit data trust   →   Clean/flag what      →  Busine
  star schema,        anti-join on FKs,       UPDATE dim_date,        readmechat2
  5 tables,           check revenue           UPDATE fact_sales,      stakeholder.md
  primary keys        formula, check           CREATE VIEW            (business language,
-                     constant discount,       fact_sales_clean       numbers safe to use)
+                     constant discount,       clean.v_sales_bi       numbers safe to use)
                      check duplicate emails
      └───────────────────────┬──────────────────────────┘
                      readmechat.md
@@ -85,7 +85,7 @@ were used, depending on the nature of the problem:
 | Type of problem | Action | Example |
 |---|---|---|
 | Can be recomputed from a correct source | **Fix directly** (`UPDATE`) | `quarter` and `is_weekend` can be recomputed from `full_date`/`day_of_week`, so they were fixed directly. |
-| The source of truth is clear, but lives in another column | **Build a view / synchronize** | `fact_sales.category` isn't trustworthy on its own → `fact_sales_clean` was built, pulling `category` from `dim_product`. |
+| The source of truth is clear, but lives in another column | **Build a view / synchronize** | `fact_sales.category` isn't trustworthy on its own (it matches `dim_product.category` in only 27.5% of rows) → `clean.v_sales_bi` was built, exposing `product_group` from the cleaned `dim_product` as the canonical category.
 | No clear source of truth exists | **Don't fix, just flag** | `revenue` doesn't match the manual formula — the original formula is unknown, so `revenue` was **not** overwritten, just documented as unable to be cross-validated. Same for negative product margins — not something to "fix", but flagged as unfit for use. |
 
 The principle: **never overwrite data without being sure what the correct
@@ -106,7 +106,8 @@ as problematic in Stage 2**, or explain the limitation if used anyway.
 This is what `readmechat2stakeholder.md` contains — not just "business
 queries", but business queries that have **already been filtered** through
 the knowledge from Stages 2–3. Concrete examples:
-- `fact_sales_clean` is used (not the raw `fact_sales.category`) because
+- `clean.v_sales_bi` is used, with category taken from
+  `product_group` (not the raw `fact_sales.category`), because
   Stages 2/3 already proved the raw column is out of sync.
 - Monthly trend is computed from `full_date` directly, **not** from
   `month_name`, because Stage 2 found `month_name` was never fixed and is
