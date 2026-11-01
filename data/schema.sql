@@ -48,6 +48,10 @@ CREATE TABLE IF NOT EXISTS fact_sales (
     category      TEXT
 );
 
+CREATE INDEX IF NOT EXISTS idx_fact_sales_date_key     ON fact_sales (date_key);
+CREATE INDEX IF NOT EXISTS idx_fact_sales_product_key  ON fact_sales (product_key);
+CREATE INDEX IF NOT EXISTS idx_fact_sales_customer_key ON fact_sales (customer_key);
+CREATE INDEX IF NOT EXISTS idx_fact_sales_store_key    ON fact_sales (store_key);
 ALTER TABLE public.dim_date      ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.dim_product   ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.dim_customer  ENABLE ROW LEVEL SECURITY;

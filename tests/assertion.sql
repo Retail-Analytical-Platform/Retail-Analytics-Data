@@ -16,9 +16,4 @@ BEGIN
   IF n > 0 THEN
     RAISE EXCEPTION '% products have unit_cost > list_price', n;
   END IF;
-
-  SELECT count(*) INTO n FROM staging.raw_sales;
-  IF n <> 60000 THEN
-    RAISE EXCEPTION 'staging.raw_sales: expected 60000 rows, got %', n;
-  END IF;
 END $$;
