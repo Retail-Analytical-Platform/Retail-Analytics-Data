@@ -15,12 +15,12 @@ BEGIN
     END LOOP;
 
     CREATE SCHEMA IF NOT EXISTS clean;
-    DROP VIEW  IF EXISTS clean.v_fact_sales;
-    DROP TABLE IF EXISTS clean.fact_sales;
-    DROP TABLE IF EXISTS clean.dim_store;
-    DROP TABLE IF EXISTS clean.dim_customer;
-    DROP TABLE IF EXISTS clean.dim_product;
-    DROP TABLE IF EXISTS clean.dim_date;
+    DROP VIEW  IF EXISTS clean.v_fact_sales CASCADE;
+    DROP TABLE IF EXISTS clean.fact_sales CASCADE;
+    DROP TABLE IF EXISTS clean.dim_store CASCADE;
+    DROP TABLE IF EXISTS clean.dim_customer CASCADE;
+    DROP TABLE IF EXISTS clean.dim_product CASCADE;
+    DROP TABLE IF EXISTS clean.dim_date CASCADE;
 
     ALTER TABLE transformed.dim_date SET SCHEMA clean;
     ALTER TABLE clean.dim_date ADD PRIMARY KEY (date_key);
